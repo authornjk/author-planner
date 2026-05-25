@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8IS0tIEJhY2tncm91bmQgY2lyY2xlIC0tPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMjU2IiBmaWxsPSIjRjJFRUU2Ii8+CiAgPCEtLSBPcGVuIGJvb2sgbGVmdCBwYWdlIC0tPgogIDxwYXRoIGQ9Ik0yNTYgMTYwIEMyMjAgMTYwIDE1MCAxNzUgMTIwIDIwMCBMMTIwIDM2MCBDMTUwIDM0MCAyMjAgMzI4IDI1NiAzMzAgWiIgZmlsbD0iI0E2QjY5QSIvPgogIDwhLS0gT3BlbiBib29rIHJpZ2h0IHBhZ2UgLS0+CiAgPHBhdGggZD0iTTI1NiAxNjAgQzI5MiAxNjAgMzYyIDE3NSAzOTIgMjAwIEwzOTIgMzYwIEMzNjIgMzQwIDI5MiAzMjggMjU2IDMzMCBaIiBmaWxsPSIjQzhBQTg4Ii8+CiAgPCEtLSBCb29rIHNwaW5lIC0tPgogIDxyZWN0IHg9IjI1MCIgeT0iMTU4IiB3aWR0aD0iMTIiIGhlaWdodD0iMTc0IiByeD0iNiIgZmlsbD0iIzdBOTA3MCIvPgogIDwhLS0gUGluL3RhY2sgYXQgdG9wIHJpZ2h0IC0tPgogIDxjaXJjbGUgY3g9IjM2MCIgY3k9IjE0MCIgcj0iMjgiIGZpbGw9IiNFOEI3QzIiLz4KICA8Y2lyY2xlIGN4PSIzNjAiIGN5PSIxNDAiIHI9IjE2IiBmaWxsPSIjQzQ3ODhBIi8+CiAgPHJlY3QgeD0iMzU2IiB5PSIxNjQiIHdpZHRoPSI4IiBoZWlnaHQ9IjMwIiByeD0iNCIgZmlsbD0iI0M0Nzg4QSIvPgogIDwhLS0gTGluZXMgb24gbGVmdCBwYWdlIHN1Z2dlc3RpbmcgdGV4dCAtLT4KICA8bGluZSB4MT0iMTUwIiB5MT0iMjMwIiB4Mj0iMjMwIiB5Mj0iMjIyIiBzdHJva2U9IiNGMkVFRTYiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIwLjciLz4KICA8bGluZSB4MT0iMTQ4IiB5MT0iMjU1IiB4Mj0iMjI4IiB5Mj0iMjQ3IiBzdHJva2U9IiNGMkVFRTYiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIwLjciLz4KICA8bGluZSB4MT0iMTQ2IiB5MT0iMjgwIiB4Mj0iMjI2IiB5Mj0iMjcyIiBzdHJva2U9IiNGMkVFRTYiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIwLjUiLz4KICA8IS0tIExpbmVzIG9uIHJpZ2h0IHBhZ2UgLS0+CiAgPGxpbmUgeDE9IjI4MiIgeTE9IjIyMiIgeDI9IjM2MiIgeTI9IjIzMCIgc3Ryb2tlPSIjRjJFRUU2IiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgb3BhY2l0eT0iMC43Ii8+CiAgPGxpbmUgeDE9IjI4MiIgeTE9IjI0NyIgeDI9IjM2MiIgeTI9IjI1NSIgc3Ryb2tlPSIjRjJFRUU2IiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgb3BhY2l0eT0iMC43Ii8+CiAgPGxpbmUgeDE9IjI4MiIgeTE9IjI3MiIgeDI9IjM2MiIgeTI9IjI4MCIgc3Ryb2tlPSIjRjJFRUU2IiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgb3BhY2l0eT0iMC41Ii8+Cjwvc3ZnPg==">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8IS0tIEJhY2tncm91bmQgY2lyY2xlIC0tPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMjU2IiBmaWxsPSIjRjJFRUU2Ii8+CiAgPCEtLSBPcGVuIGJvb2sgbGVmdCBwYWdlIC0tPgogIDxwYXRoIGQ9Ik0yNTYgMTYwIEMyMjAgMTYwIDE1MCAxNzUgMTIwIDIwMCBMMTIwIDM2MCBDMTUwIDM0MCAyMjAgMzI4IDI1NiAzMzAgWiIgZmlsbD0iI0E2QjY5QSIvPgogIDwhLS0gT3BlbiBib29rIHJpZ2h0IHBhZ2UgLS0+CiAgPHBhdGggZD0iTTI1NiAxNjAgQzI5MiAxNjAgMzYyIDE3NSAzOTIgMjAwIEwzOTIgMzYwIEMzNjIgMzQwIDI5MiAzMjggMjU2IDMzMCBaIiBmaWxsPSIjQzhBQTg4Ii8+CiAgPCEtLSBCb29rIHNwaW5lIC0tPgogIDxyZWN0IHg9IjI1MCIgeT0iMTU4IiB3aWR0aD0iMTIiIGhlaWdodD0iMTc0IiByeD0iNiIgZmlsbD0iIzdBOTA3MCIvPgogIDwhLS0gUGluL3RhY2sgYXQgdG9wIHJpZ2h0IC0tPgogIDxjaXJjbGUgY3g9IjM2MCIgY3k9IjE0MCIgcj0iMjgiIGZpbGw9IiNFOEI3QzIiLz4KICA8Y2lyY2xlIGN4PSIzNjAiIGN5PSIxNDAiIHI9IjE2IiBmaWxsPSIjQzQ3ODhBIi8+CiAgPHJlY3QgeD0iMzU2IiB5PSIxNjQiIHdpZHRoPSI4IiBoZWlnaHQ9IjMwIiByeD0iNCIgZmlsbD0iI0M0Nzg4QSIvPgogIDwhLS0gTGluZXMgb24gbGVmdCBwYWdlIHN1Z2dlc3RpbmcgdGV4dCAtLT4KICA8bGluZSB4MT0iMTUwIiB5MT0iMjMwIiB4Mj0iMjMwIiB5Mj0iMjIyIiBzdHJva2U9IiNGMkVFRTYiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIwLjciLz4KICA8bGluZSB4MT0iMTQ4IiB5MT0iMjU1IiB4Mj0iMjI4IiB5Mj0iMjQ3IiBzdHJva2U9IiNGMkVFRTYiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIwLjciLz4KICA8bGluZSB4MT0iMTQ2IiB5MT0iMjgwIiB4Mj0iMjI2IiB5Mj0iMjcyIiBzdHJva2U9IiNGMkVFRTYiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIwLjUiLz4KICA8IS0tIExpbmVzIG9uIHJpZ2h0IHBhZ2UgLS0+CiAgPGxpbmUgeDE9IjI4MiIgeTE9IjIyMiIgeDI9IjM2MiIgeTI9IjIzMCIgc3Ryb2tlPSIjRjJFRUU2IiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgb3BhY2l0eT0iMC43Ii8+CiAgPGxpbmUgeDE9IjI4MiIgeTE9IjI0NyIgeDI9IjM2MiIgeTI9IjI1NSIgc3Ryb2tlPSIjRjJFRUU2IiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgb3BhY2l0eT0iMC43Ii8+CiAgPGxpbmUgeDE9IjI4MiIgeTE9IjI3MiIgeDI9IjM2MiIgeTI9IjI4MCIgc3Ryb2tlPSIjRjJFRUU2IiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgb3BhY2l0eT0iMC41Ii8+Cjwvc3ZnPg==">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Launch Planner">
+<meta name="theme-color" content="#F2EEE6">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Launch Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#000;--gray:#D9D9D9;--white:#fff;--tan:#C8AA88;--tan-l:#EDE0CF;
+  --cream:#F2EEE6;--cream-d:#E8E2D8;--sage:#A6B69A;--sage-l:#D4DDD0;--sage-d:#7A9070;
+  --pink:#E8B7C2;--pink-l:#F5DDE3;--pink-d:#C4788A;
+  --fd:'Cormorant Garamond',serif;--fb:'Jost',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height:100dvh;overflow-x:hidden}
+
+/* HEADER */
+.hdr{background:var(--white);border-bottom:1px solid var(--gray);padding:12px 14px 10px;position:sticky;top:0;z-index:100}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.app-title{font-family:var(--fd);font-size:20px;font-weight:400;line-height:1}
+.app-sub{font-size:10px;font-weight:300;color:var(--tan);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.view-toggle{display:flex;background:var(--cream);border-radius:8px;padding:3px;gap:2px}
+.vbtn{flex:1;border:none;background:transparent;font-family:var(--fb);font-size:10px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:6px 3px;border-radius:6px;cursor:pointer;color:#888;transition:all .2s}
+.vbtn.active{background:var(--white);color:var(--black);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+
+/* COUNTDOWNS */
+.cd-bar{display:flex;gap:7px;padding:8px 14px;overflow-x:auto;scrollbar-width:none;background:var(--white);border-bottom:1px solid var(--cream-d);align-items:center}
+.cd-bar::-webkit-scrollbar{display:none}
+.cd-badge{flex-shrink:0;color:var(--white);font-size:10px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:5px 11px;border-radius:20px;cursor:pointer;white-space:nowrap;border:none;font-family:var(--fb)}
+.cd-add-btn{flex-shrink:0;background:var(--cream-d);color:#888;font-size:15px;width:26px;height:26px;border-radius:50%;border:1px dashed var(--gray);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* STATS BAR */
+.stats-bar{display:flex;gap:5px;padding:8px 14px;background:var(--white);border-bottom:1px solid var(--cream-d);align-items:center}
+.stat{flex-shrink:0;background:var(--cream);border-radius:8px;padding:5px 10px;text-align:center}
+.stat-n{font-family:var(--fd);font-size:16px;font-weight:400;line-height:1}
+.stat-l{font-size:9px;font-weight:300;letter-spacing:.05em;text-transform:uppercase;color:#888;margin-top:2px}
+.todo-trigger{margin-left:auto;flex-shrink:0;background:var(--tan-l);border:1px solid var(--tan);color:#7A5C35;font-family:var(--fb);font-size:10px;font-weight:500;letter-spacing:.05em;padding:6px 12px;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.todo-trigger .todo-badge{background:var(--pink-d);color:var(--white);font-size:9px;font-weight:600;padding:1px 6px;border-radius:10px;min-width:18px;text-align:center}
+
+/* FILTERS */
+.filter-section{background:var(--white);border-bottom:1px solid var(--gray);padding-bottom:8px}
+.fg-row{display:flex;align-items:center;padding:7px 14px 4px;gap:0}
+.fg-title{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#bbb;flex:1}
+.filter-wrap{padding:0 14px}
+.filter-grid{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.chip{border:1px solid var(--gray);background:var(--white);font-family:var(--fb);font-size:10px;font-weight:500;letter-spacing:.04em;padding:4px 11px;border-radius:20px;cursor:pointer;color:#666;transition:all .15s;white-space:nowrap;user-select:none}
+.chip.active{background:var(--sage-d);border-color:var(--sage-d);color:var(--white)}
+.chip.active.c-pink{background:var(--pink-d);border-color:var(--pink-d)}
+.chip.active.c-tan{background:var(--tan);border-color:var(--tan)}
+.chip.active.c-book{background:var(--sage-d);border-color:var(--sage-d)}
+.chip.active.c-type{background:var(--pink-d);border-color:var(--pink-d)}
+.manage-chip{border:1px dashed var(--gray);background:transparent;font-family:var(--fb);font-size:11px;font-weight:500;padding:4px 10px;border-radius:20px;cursor:pointer;color:#aaa;white-space:nowrap;display:flex;align-items:center;gap:4px}
+.manage-chip:active{background:var(--cream)}
+
+/* MAIN */
+.main{padding:12px 14px 100px}
+.page{display:none}.page.active{display:block}
+
+/* DATE RANGE HEADER */
+.range-hdr{display:flex;align-items:center;gap:8px;margin:18px 0 8px}
+.range-hdr:first-child{margin-top:2px}
+.rh-line{flex:1;height:1px;background:var(--gray)}
+.rh-lbl{font-family:var(--fd);font-size:12px;font-style:italic;color:var(--tan);white-space:nowrap}
+
+/* CARD */
+.card{background:var(--white);border-radius:12px;overflow:hidden;margin-bottom:7px;border:1px solid var(--cream-d);display:flex;position:relative}
+.card:active{transform:scale(.98)}
+.card-date{width:58px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;gap:1px}
+.cd-day{font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.cd-num{font-family:var(--fd);font-size:20px;font-weight:300;line-height:1}
+.cd-mon{font-size:8px;font-weight:300;letter-spacing:.07em;text-transform:uppercase;opacity:.75}
+.cd-time{font-size:8px;font-weight:300;margin-top:2px;opacity:.85}
+.cd-icon{font-size:12px;margin-top:2px;line-height:1}
+.card-body{flex:1;padding:8px 36px 8px 10px;border-left:1px solid var(--cream-d);min-width:0}
+.card-tags{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:3px}
+.ctag{font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:9px}
+.card-title{font-family:var(--fd);font-size:14px;font-weight:500;line-height:1.3;margin-bottom:2px}
+.card-cats{font-size:9px;color:var(--tan);font-style:italic;margin-bottom:1px}
+.card-desc{font-size:10px;font-weight:300;color:#666;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-actions{position:absolute;bottom:0;right:0;top:0;display:flex;flex-direction:column;justify-content:center;padding:0 6px;gap:4px;z-index:2}
+.edit-btn{width:26px;height:26px;border-radius:50%;background:var(--cream);border:none;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center}
+.todo-tack{position:absolute;top:6px;right:34px;font-size:12px;z-index:2;pointer-events:none}
+.card-tap{position:absolute;inset:0;z-index:1}
+
+/* TRACK COLORS */
+.tk-social .card-date{background:var(--sage);color:var(--white)}
+.tk-email .card-date{background:var(--pink-d);color:var(--white)}
+.tk-newsletter .card-date{background:var(--tan);color:var(--white)}
+
+/* TAG COLORS */
+.tg-DITS{background:var(--sage-l);color:var(--sage-d)}
+.tg-BUW{background:var(--pink-l);color:var(--pink-d)}
+.tg-BH,.tg-bh{background:var(--tan-l);color:#7A5C35}
+.tg-ARC{background:#fde8e8;color:#9B2335;font-weight:700}
+.tg-Fun{background:var(--cream-d);color:#777}
+.tg-WIP{background:var(--tan-l);color:#7A5C35;font-weight:700}
+.tg-Notebook{background:#fde8e8;color:#9B2335}
+.tg-Personal{background:var(--pink-l);color:var(--pink-d)}
+.tg-default{background:var(--cream-d);color:#999}
+
+/* FLAGS */
+.fl-arc{border-color:#C4788A;border-width:1.5px}
+.fl-launch{border-color:var(--sage-d);border-width:1.5px}
+.fl-kayak{border-color:var(--sage);border-width:1.5px}
+.fl-buw{border-color:var(--pink);border-width:1.5px}
+.fl-notebook{border-color:var(--tan);border-width:1.5px}
+.fl-mom{border-color:var(--pink-d);border-width:2px}
+
+/* MONTH CALENDAR - continuous scroll */
+.cal-scroll{overflow-y:auto;max-height:calc(100dvh - 280px)}
+.cal-month-block{margin-bottom:24px}
+.cal-month-title{font-family:var(--fd);font-size:18px;font-style:italic;font-weight:400;margin-bottom:8px;padding-left:2px}
+.month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.dow{text-align:center;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#aaa;padding:3px 0 5px}
+.cal-day{background:var(--white);border-radius:6px;padding:3px 2px 4px;cursor:pointer;min-height:68px;overflow:hidden}
+.cal-day.empty{background:transparent;cursor:default}
+.cal-day.today-day{background:var(--cream-d)}
+.cal-day-num{font-size:13px;text-align:center;margin-bottom:2px;line-height:1}
+.today-day .cal-day-num{font-weight:700;color:var(--sage-d)}
+.cal-pills{display:flex;flex-direction:column;gap:1px;padding:0 1px}
+.cal-pill{font-size:10px;font-weight:500;padding:3px 4px;border-radius:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.4;cursor:pointer}
+.cal-more{font-size:9px;color:#bbb;padding-left:2px}
+
+/* 7-COL WEEK GRID */
+.week-grid-wrap{overflow-x:auto;padding-bottom:4px}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;min-width:540px}
+.wk-col-hdr{text-align:center;padding:4px 2px;font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:#aaa}
+.wk-col-hdr.today-col{color:var(--sage-d);font-weight:700}
+.wk-col{background:var(--white);border-radius:8px;padding:4px;min-height:70px;border:1px solid var(--cream-d)}
+.wk-col.today-col-body{border-color:var(--sage-l);background:#fafff9}
+.wk-mini{border-radius:5px;padding:3px 4px;margin-bottom:2px;cursor:pointer}
+.wk-mini.tk-social{background:var(--sage-l)}
+.wk-mini.tk-email{background:var(--pink-l)}
+.wk-mini.tk-newsletter{background:var(--tan-l)}
+.wk-mini-icon{font-size:8px;line-height:1}
+.wk-mini-title{font-size:8px;font-weight:500;line-height:1.3;color:var(--black)}
+.wk-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.wk-nav-btn{width:32px;height:32px;border:1px solid var(--gray);background:var(--white);border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.wk-title{font-family:var(--fd);font-size:15px;font-style:italic}
+
+/* SETTINGS */
+.settings-section{background:var(--white);border-radius:12px;margin-bottom:12px;overflow:hidden;border:1px solid var(--cream-d)}
+.settings-hdr{padding:11px 14px;border-bottom:1px solid var(--cream-d);display:flex;align-items:center;justify-content:space-between}
+.settings-title{font-family:var(--fd);font-size:16px;font-weight:500}
+.settings-add{background:var(--sage);color:var(--white);border:none;border-radius:20px;padding:4px 12px;font-size:11px;font-family:var(--fb);cursor:pointer}
+.settings-item{padding:10px 14px;border-bottom:1px solid var(--cream-d);display:flex;align-items:center;justify-content:space-between}
+.settings-item:last-child{border-bottom:none}
+.si-label{font-size:13px}
+.si-sub{font-size:10px;color:#aaa;margin-top:1px}
+.si-actions{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.si-btn{border:none;background:var(--cream);border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;font-family:var(--fb);white-space:nowrap}
+.si-btn.del{color:var(--pink-d)}
+.cat-tree-node{padding:4px 14px 8px}
+.cat-row{display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid var(--cream-d)}
+.cat-row:last-child{border-bottom:none}
+.cat-indent{margin-left:14px;border-left:1px solid var(--gray);padding-left:10px;margin-top:2px}
+.cat-level-badge{font-size:8px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:1px 5px;border-radius:6px;flex-shrink:0}
+.cl-main{background:var(--sage-l);color:var(--sage-d)}
+.cl-sub{background:var(--tan-l);color:#7A5C35}
+.cl-subsub{background:var(--pink-l);color:var(--pink-d)}
+.cat-name-txt{flex:1;font-size:12px}
+
+/* MANAGE MODAL - editable inline */
+.manage-item{display:flex;align-items:center;gap:6px;padding:8px 14px;border-bottom:1px solid var(--cream-d);min-height:44px}
+.manage-item:last-child{border-bottom:none}
+.manage-drag{color:#ccc;font-size:14px;flex-shrink:0}
+.manage-name-input{flex:1;border:1px solid var(--sage-l);border-radius:6px;padding:5px 8px;font-family:var(--fb);font-size:13px;outline:none;background:var(--cream);min-width:0}
+.manage-name-input:focus{border-color:var(--sage)}
+.manage-del{background:none;border:none;color:#ccc;cursor:pointer;font-size:16px;flex-shrink:0;padding:0 2px}
+
+/* MODALS */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-ov.open{opacity:1;pointer-events:all}
+.modal{background:var(--cream);border-radius:20px 20px 0 0;width:100%;max-height:88vh;overflow-y:auto;padding:14px 14px 50px;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
+.modal-ov.open .modal{transform:translateY(0)}
+.modal-handle{width:36px;height:4px;background:var(--gray);border-radius:2px;margin:0 auto 14px}
+.modal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.modal-title{font-family:var(--fd);font-size:19px;font-weight:500}
+.modal-close-btn{border:none;background:var(--cream-d);border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.modal-date-lbl{font-family:var(--fd);font-size:22px;font-weight:400;font-style:italic;margin-bottom:12px}
+
+/* TODO SHEET */
+.todo-section-inner{padding:4px 0}
+.todo-add-row{display:flex;gap:8px;margin-bottom:10px}
+.todo-add-input{flex:1;border:1px solid var(--gray);border-radius:8px;padding:8px 12px;font-family:var(--fb);font-size:12px;background:var(--white);outline:none}
+.todo-add-input:focus{border-color:var(--sage)}
+.todo-add-btn{background:var(--sage-d);color:var(--white);border:none;border-radius:8px;padding:8px 14px;font-family:var(--fb);font-size:12px;cursor:pointer;flex-shrink:0}
+.todo-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--white);border-radius:10px;margin-bottom:6px;border:1px solid var(--cream-d)}
+.todo-item.done{opacity:.5}
+.todo-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--gray);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s;font-size:11px}
+.todo-item.done .todo-check{background:var(--sage);border-color:var(--sage);color:var(--white)}
+.todo-body{flex:1;min-width:0}
+.todo-text{font-size:12px;line-height:1.5}
+.todo-item.done .todo-text{text-decoration:line-through;color:#aaa}
+.todo-due{font-size:10px;color:var(--tan);display:block;margin-top:2px}
+.todo-priority{font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:8px;margin-top:3px;display:inline-block}
+.p-high{background:#fde8e8;color:#9B2335}
+.p-med{background:var(--tan-l);color:#7A5C35}
+.p-low{background:var(--cream-d);color:#888}
+.todo-del{background:none;border:none;color:#ddd;cursor:pointer;font-size:14px;padding:0 2px;flex-shrink:0}
+.todo-section-title{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#bbb;margin:12px 0 6px}
+
+/* FORM */
+.ef{margin-bottom:12px}
+.ef-lbl{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.ef-lbl-add{font-size:10px;color:var(--sage-d);background:none;border:none;cursor:pointer;font-family:var(--fb);padding:1px 6px;border-radius:8px;border:1px solid var(--sage-l)}
+.ef-input{width:100%;border:1px solid var(--gray);border-radius:8px;padding:8px 12px;font-family:var(--fb);font-size:13px;background:var(--white);color:var(--black);outline:none}
+.ef-input:focus{border-color:var(--sage)}
+.ef-textarea{width:100%;border:1px solid var(--gray);border-radius:8px;padding:8px 12px;font-family:var(--fb);font-size:13px;background:var(--white);color:var(--black);outline:none;resize:vertical;min-height:70px}
+.ef-select{width:100%;border:1px solid var(--gray);border-radius:8px;padding:8px 12px;font-family:var(--fb);font-size:13px;background:var(--white);color:var(--black);outline:none;-webkit-appearance:none}
+.btn-save{width:100%;background:var(--sage-d);color:var(--white);border:none;border-radius:12px;padding:13px;font-family:var(--fb);font-size:13px;font-weight:500;cursor:pointer;margin-top:4px}
+.btn-del{width:100%;background:transparent;color:var(--pink-d);border:1px solid var(--pink-d);border-radius:12px;padding:11px;font-family:var(--fb);font-size:12px;cursor:pointer;margin-top:8px}
+.btn-ghost{width:100%;background:transparent;color:#888;border:1px solid var(--gray);border-radius:12px;padding:11px;font-family:var(--fb);font-size:12px;cursor:pointer;margin-top:8px}
+
+/* ACC CAT PICKER */
+.acc-level{margin-bottom:10px}
+.acc-items{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px}
+.acc-chip{border:1px solid var(--gray);background:var(--white);font-family:var(--fb);font-size:11px;padding:5px 12px;border-radius:20px;cursor:pointer;color:#555;transition:all .15s}
+.acc-chip.sel{background:var(--sage-d);border-color:var(--sage-d);color:var(--white)}
+.acc-sub-lbl{font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#bbb;margin-bottom:5px}
+.acc-indent{margin-left:12px;padding-left:10px;border-left:2px solid var(--gray);margin-top:6px}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--gray);display:flex;padding:8px 0;padding-bottom:calc(8px + env(safe-area-inset-bottom));z-index:150}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:3px 0}
+.nav-icon{font-size:17px;line-height:1}
+.nav-lbl{font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:#bbb}
+.nav-item.active .nav-lbl{color:var(--sage-d)}
+.empty-msg{text-align:center;padding:32px;color:#bbb;font-family:var(--fd);font-style:italic;font-size:17px}
+
+/* TYPE PICKER */
+.type-pick-btn{border:1px solid var(--gray);background:var(--white);font-family:var(--fb);font-size:12px;font-weight:500;padding:12px 8px;border-radius:12px;cursor:pointer;color:#444;transition:all .2s;text-align:center;width:100%}
+.type-pick-btn:active,.type-pick-btn.selected{background:var(--sage-d);border-color:var(--sage-d);color:var(--white)}
+.type-selected-badge{display:inline-flex;align-items:center;gap:6px;background:var(--sage-l);color:var(--sage-d);font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;margin-bottom:14px;cursor:pointer}
+/* FLAG BUTTONS */
+.flag-btn-grid{display:flex;flex-wrap:wrap;gap:6px}
+.flag-btn{border:1px solid var(--gray);background:var(--white);font-family:var(--fb);font-size:11px;font-weight:500;padding:5px 12px;border-radius:20px;cursor:pointer;color:#666;transition:all .15s}
+.flag-btn.active{background:var(--black);border-color:var(--black);color:var(--white)}
+/* BUTTON FEEDBACK */
+.btn-flash{animation:flash .4s ease}
+@keyframes flash{0%{opacity:1}30%{opacity:.4;transform:scale(.97)}100%{opacity:1;transform:scale(1)}}
+.btn-confirm{background:var(--sage)!important;transition:background .3s}
+/* COMPLETION CHECK */
+.completion-box{background:var(--cream-d);border-radius:12px;padding:14px;margin-top:8px}
+.comp-title{font-size:12px;font-weight:500;margin-bottom:10px}
+.comp-btns{display:flex;gap:8px}
+.comp-btn{flex:1;border:1px solid var(--gray);background:var(--white);font-family:var(--fb);font-size:12px;padding:9px;border-radius:10px;cursor:pointer;font-weight:500}
+.comp-btn.yes{border-color:var(--sage);color:var(--sage-d)}
+.comp-btn.no{border-color:var(--pink-d);color:var(--pink-d)}
+/* RESCHEDULE MINI */
+.reschedule-box{background:var(--white);border:1px solid var(--gray);border-radius:10px;padding:12px;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-top">
+    <div><div class="app-title">Launch Planner</div><div class="app-sub">Author Content Hub</div></div>
+  </div>
+  <div class="view-toggle" id="view-toggle">
+    <button class="vbtn active" data-view="list">List</button>
+    <button class="vbtn" data-view="month">Month</button>
+    <button class="vbtn" data-view="week">Week</button>
+    <button class="vbtn" data-view="next7">Next 7</button>
+  </div>
+</div>
+
+<div class="cd-bar" id="cd-bar"></div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-n" id="st-total">0</div><div class="stat-l">Total</div></div>
+  <div class="stat"><div class="stat-n" id="st-social">0</div><div class="stat-l">Social</div></div>
+  <div class="stat"><div class="stat-n" id="st-nl">0</div><div class="stat-l">Newsletter</div></div>
+  <div class="stat"><div class="stat-n" id="st-em">0</div><div class="stat-l">Emails</div></div>
+  <button class="todo-trigger" onclick="openModal('todo-modal')">
+    📌 To-Do <span class="todo-badge" id="todo-count-badge">0</span>
+  </button>
+</div>
+
+<div class="filter-section" id="filter-section">
+  <div class="fg-row">
+    <span class="fg-title">Track</span>
+  </div>
+  <div class="filter-wrap">
+    <div class="filter-grid" id="track-filters">
+      <button class="chip" data-filter="tk:social" data-group="track">Social</button>
+      <button class="chip" data-filter="tk:newsletter" data-group="track">Newsletter</button>
+      <button class="chip" data-filter="tk:email" data-group="track">Email</button>
+    </div>
+  </div>
+  <div class="fg-row" style="margin-top:6px">
+    <span class="fg-title">Books</span>
+  </div>
+  <div class="filter-wrap">
+    <div class="filter-grid" id="book-filters"></div>
+  </div>
+  <div class="fg-row" style="margin-top:6px">
+    <span class="fg-title">Post Type</span>
+  </div>
+  <div class="filter-wrap">
+    <div class="filter-grid" id="type-filters"></div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="page active" id="page-schedule"></div>
+  <div class="page" id="page-settings">
+    <div class="settings-section">
+      <div class="settings-hdr"><div class="settings-title">Countdowns</div><button class="settings-add" onclick="openAddCountdown()">+ Add</button></div>
+      <div id="cd-settings-list"></div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-hdr"><div class="settings-title">Categories</div><button class="settings-add" onclick="openAddCat(null,null)">+ Add</button></div>
+      <div id="cat-settings-tree"></div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-hdr"><div class="settings-title">New Post</div></div>
+      <div style="padding:12px"><button class="btn-save" onclick="openEditPost(null)" style="margin-top:0">+ Add Post</button></div>
+    </div>
+    <button class="btn-ghost" onclick="if(confirm('Reset ALL data to defaults?')){localStorage.clear();location.reload()}">Reset to defaults</button>
+  </div>
+</div>
+
+<!-- Day Modal -->
+<div class="modal-ov" id="day-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-date-lbl" id="day-modal-date"></div>
+    <div id="day-modal-items"></div>
+  </div>
+</div>
+
+<!-- Edit / New Item Modal -->
+<div class="modal-ov" id="edit-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-top">
+      <div class="modal-title" id="edit-modal-title">New Item</div>
+      <button class="modal-close-btn" onclick="closeModal('edit-modal')">✕</button>
+    </div>
+    <!-- Step 1: type picker (hidden when editing existing) -->
+    <div id="ef-type-picker">
+      <div class="ef-lbl" style="margin-bottom:8px">What kind of item is this?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px">
+        <button class="type-pick-btn" onclick="selectItemType('social')">📸 Social Media Post</button>
+        <button class="type-pick-btn" onclick="selectItemType('newsletter')">📰 Newsletter Item</button>
+        <button class="type-pick-btn" onclick="selectItemType('email')">✉️ Email</button>
+        <button class="type-pick-btn" onclick="selectItemType('event')">📅 Event</button>
+        <button class="type-pick-btn" style="grid-column:span 2" onclick="selectItemType('other')">📝 Other</button>
+      </div>
+    </div>
+    <!-- Dynamic fields injected here -->
+    <div id="ef-dynamic-fields"></div>
+    <!-- Always present -->
+    <div id="ef-footer" style="display:none">
+      <button class="btn-save" id="ef-save-btn" onclick="saveItem()">Save</button>
+      <button class="btn-del" id="ef-del-btn" onclick="deletePost()" style="display:none">Remove</button>
+    </div>
+  </div>
+</div>
+
+<!-- Countdown Modal -->
+<div class="modal-ov" id="cd-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-top">
+      <div class="modal-title" id="cd-modal-title">Countdown</div>
+      <button class="modal-close-btn" onclick="closeModal('cd-modal')">✕</button>
+    </div>
+    <div class="ef"><label class="ef-lbl">Label</label><input class="ef-input" id="cd-label"></div>
+    <div class="ef"><label class="ef-lbl">Date</label><input class="ef-input" id="cd-date" type="date"></div>
+    <div class="ef"><label class="ef-lbl">Color</label>
+      <select class="ef-select" id="cd-color">
+        <option value="#7A9070">Sage</option><option value="#C4788A">Pink</option>
+        <option value="#C8AA88">Tan</option><option value="#000000">Black</option>
+      </select>
+    </div>
+    <button class="btn-save" onclick="saveCountdown()">Save</button>
+    <button class="btn-del" id="cd-del-btn" onclick="deleteCountdown()">Remove</button>
+  </div>
+</div>
+
+<!-- Category Modal -->
+<div class="modal-ov" id="cat-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-top">
+      <div class="modal-title">Category</div>
+      <button class="modal-close-btn" onclick="closeModal('cat-modal')">✕</button>
+    </div>
+    <div class="ef"><label class="ef-lbl">Name</label><input class="ef-input" id="cat-name"></div>
+    <div class="ef"><label class="ef-lbl">Level</label>
+      <select class="ef-select" id="cat-level" onchange="updateCatParents()">
+        <option value="main">Main (e.g. BUW, DITS)</option>
+        <option value="sub">Sub (e.g. Quote, Character)</option>
+        <option value="subsub">Sub-sub (e.g. Chemistry, FMC)</option>
+      </select>
+    </div>
+    <div class="ef" id="cat-parent-wrap"><label class="ef-lbl">Parent</label><select class="ef-select" id="cat-parent"></select></div>
+    <button class="btn-save" onclick="saveCat()">Save</button>
+  </div>
+</div>
+
+<!-- Manage Books/Types Modal -->
+<div class="modal-ov" id="manage-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-top">
+      <div class="modal-title" id="manage-modal-title">Manage</div>
+      <button class="modal-close-btn" onclick="closeModal('manage-modal')">✕</button>
+    </div>
+    <p style="font-size:11px;color:#888;margin-bottom:12px">Edit names inline. Use ↑↓ to reorder. Leftmost appears first in filters.</p>
+    <div id="manage-list"></div>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <input class="ef-input" id="manage-new-input" placeholder="Add new...">
+      <button class="btn-save" style="width:auto;padding:8px 16px;margin-top:0" onclick="addManageItem()">Add</button>
+    </div>
+    <button class="btn-save" onclick="saveManage()" style="margin-top:12px">Done</button>
+  </div>
+</div>
+
+<!-- To-Do Modal -->
+<div class="modal-ov" id="todo-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-top">
+      <div class="modal-title">📌 To-Do List</div>
+      <button class="modal-close-btn" onclick="closeModal('todo-modal')">✕</button>
+    </div>
+    <div class="todo-section-inner" id="todo-sheet-content"></div>
+  </div>
+</div>
+
+<!-- Todo Add Detail Modal -->
+<div class="modal-ov" id="todo-add-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-top">
+      <div class="modal-title">Add Task</div>
+      <button class="modal-close-btn" onclick="closeModal('todo-add-modal')">✕</button>
+    </div>
+    <div class="ef"><label class="ef-lbl">Task</label><input class="ef-input" id="todo-text-inp" placeholder="e.g. Build Mr. Darcy graphic"></div>
+    <div class="ef"><label class="ef-lbl">Due Date (optional)</label><input class="ef-input" id="todo-due-inp" type="date"></div>
+    <div class="ef"><label class="ef-lbl">Priority</label>
+      <select class="ef-select" id="todo-pri-inp">
+        <option value="high">🔴 High</option>
+        <option value="med" selected>🟡 Medium</option>
+        <option value="low">🟢 Low</option>
+      </select>
+    </div>
+    <button class="btn-save" onclick="saveTodoDetail()">Add Task</button>
+  </div>
+</div>
+
+<div class="bnav">
+  <div class="nav-item active" data-nav="schedule"><div class="nav-icon">📋</div><div class="nav-lbl">Schedule</div></div>
+  <div class="nav-item" data-nav="buw"><div class="nav-icon">🤿</div><div class="nav-lbl">BUW</div></div>
+  <div class="nav-item" data-nav="dits"><div class="nav-icon">☀️</div><div class="nav-lbl">DITS</div></div>
+  <div class="nav-item" data-nav="arc"><div class="nav-icon">📬</div><div class="nav-lbl">ARC</div></div>
+  <div class="nav-item" data-nav="settings"><div class="nav-icon">⚙️</div><div class="nav-lbl">Settings</div></div>
+</div>
+
+<script>
+// ── DEFAULTS ──────────────────────────────────────────────────────────────
+const DP=[
+  {id:"1",date:"2026-05-26",track:"newsletter",cats:[],title:"Format newsletter #1",desc:"Re-intro of yourself as an author. Tease that big things are happening this week."},
+  {id:"2",date:"2026-05-26",track:"social",cats:[],title:"Tease post — something's changing",desc:"Cryptic and fun. 'I've been keeping something from you.'"},
+  {id:"3",date:"2026-05-27",track:"newsletter",cats:[],title:"Send newsletter #1",desc:"Re-introduce yourself, tease the cover reveals."},
+  {id:"4",date:"2026-05-27",track:"social",cats:["BUW","BUW:Reveal"],title:"BUW — new cover reveal 🌿",desc:"Book 1 FIRST. New cover, one-line pitch, soft CTA.",flag:"buw"},
+  {id:"5",date:"2026-05-29",track:"social",cats:["DITS","DITS:Reveal"],title:"DITS — new cover + July 24 date",desc:"New cover AND official release date. 'Coming July 24.'"},
+  {id:"6",date:"2026-05-31",track:"social",cats:["DITS","DITS:Kayak"],title:"Kayak tease — who needs one bed?",desc:"'Who needs the one bed trope when you can have one kayak?'",flag:"kayak"},
+  {id:"7",date:"2026-06-02",track:"social",cats:["Personal"],title:"Tribute — Mom's 90th Birthday 💐",desc:"It would have been your mom's 90th birthday. She was an avid reader and great inspiration.",flag:"mom"},
+  {id:"8",date:"2026-06-02",track:"newsletter",cats:[],title:"Format newsletter #2",desc:"Recap cover reveals, re-share DITS cover."},
+  {id:"9",date:"2026-06-03",track:"newsletter",cats:[],title:"Send newsletter #2",desc:"ARC team announcement inside — subscribers first access."},
+  {id:"10",date:"2026-06-03",track:"social",cats:["ARC"],title:"ARC team is OPEN",desc:"Casual, low-barrier, exclusive club energy. Closes June 14.",flag:"arc"},
+  {id:"11",date:"2026-06-04",track:"social",cats:["DITS","DITS:Character"],title:"Meet Stephanie & Cooper — duo intro",desc:"'She's a planner. He's a disaster. They share one kayak.'"},
+  {id:"12",date:"2026-06-05",track:"social",cats:["DITS","DITS:Character","DITS:Character:FMC"],title:"Meet Stephanie",desc:"Her own spotlight. Personality, quirks, what makes her compelling."},
+  {id:"13",date:"2026-06-07",track:"social",cats:["BUW","BUW:Tropes"],title:"BUW — tropes, vibes, why you'll love it 🌿",desc:"'If you like [trope], [trope]... BUW is waiting for you.'",flag:"buw"},
+  {id:"14",date:"2026-06-09",track:"newsletter",cats:[],title:"Format newsletter #3",desc:"Teaser line from DITS, ARC closes Saturday."},
+  {id:"15",date:"2026-06-09",track:"social",cats:["DITS","DITS:Promo"],title:"Mr. Darcy — Colin or Matthew?",desc:"Side-by-side still graphic. 'The lake walk AND the hand flex both make an appearance.'",todoId:"t1"},
+  {id:"16",date:"2026-06-10",track:"newsletter",cats:[],title:"Send newsletter #3",desc:"Last call — ARC team closes Saturday."},
+  {id:"17",date:"2026-06-10",track:"social",cats:["DITS","DITS:Character","DITS:Character:MMC"],title:"Meet Cooper",desc:"His own spotlight. End with 'and then he met Stephanie.'"},
+  {id:"18",date:"2026-06-11",track:"social",cats:["WIP"],title:"WIP Wednesday #1 (bonus)",desc:"Share a line from what you're writing — B&H or HOF."},
+  {id:"19",date:"2026-06-12",track:"social",cats:["BUW","BUW:Reviews"],title:"BUW — what readers are saying 🌿",desc:"Pull 3-5 real reader quotes from Goodreads or Amazon.",flag:"buw",todoId:"t4"},
+  {id:"20",date:"2026-06-14",track:"social",cats:["ARC","DITS"],title:"Last call — ARC team closes today",desc:"'Spots close tonight — last chance to read DITS before July 24.'",flag:"arc"},
+  {id:"21",date:"2026-06-15",track:"email",cats:["ARC"],title:"Email ARC team — welcome + ground rules",desc:"Welcome them, confirm they're in, lay out ground rules, book arrives July 1.",flag:"arc"},
+  {id:"22",date:"2026-06-16",track:"newsletter",cats:[],title:"Format newsletter #4",desc:"What inspired DITS, personal note, July 24 countdown."},
+  {id:"23",date:"2026-06-16",track:"social",cats:["DITS","DITS:Promo"],title:"What inspired DITS?",desc:"Personal, real, short. One honest sentence about why you wrote this book."},
+  {id:"24",date:"2026-06-17",track:"newsletter",cats:[],title:"Send newsletter #4",desc:"The story behind DITS."},
+  {id:"25",date:"2026-06-17",track:"social",cats:["BUW","BUW:Quote"],title:"BUW — a line that lives rent free 🌿",desc:"Pull a line from BUW that you love. No context needed.",flag:"buw"},
+  {id:"26",date:"2026-06-19",track:"social",cats:["DITS","B&H"],title:"Cooper's sister might steal your heart",desc:"'You'll fall in love with Cooper in DITS — but his sister might steal your heart. March 17 next year...'"},
+  {id:"27",date:"2026-06-21",track:"social",cats:["DITS","BUW"],title:"Series connection post",desc:"'You don't have to read BUW first — but here's why you might want to.'"},
+  {id:"28",date:"2026-06-22",track:"email",cats:["ARC"],title:"Email ARC team — hype + reminder",desc:"One week before the book lands. Get them pumped.",flag:"arc"},
+  {id:"29",date:"2026-06-23",track:"newsletter",cats:[],title:"Format newsletter #5",desc:"Countdown 31 days. Teaser line, behind the covers story."},
+  {id:"30",date:"2026-06-23",track:"social",cats:["DITS","DITS:Promo"],title:"Behind the covers — why they changed",desc:"Casual and honest. Romcom cover trends shifted, you kept up."},
+  {id:"31",date:"2026-06-24",track:"newsletter",cats:[],title:"Send newsletter #5",desc:"31 days out. Countdown energy, behind-the-scenes cover story."},
+  {id:"32",date:"2026-06-24",track:"social",cats:["Fun"],title:"Relatable reader content",desc:"TBR guilt, book hangovers, DNF shame spiral."},
+  {id:"33",date:"2026-06-25",track:"social",cats:["WIP"],title:"WIP Wednesday #2 (bonus)",desc:"Second WIP line — B&H or HOF, your call."},
+  {id:"34",date:"2026-06-26",track:"social",cats:["DITS","DITS:Quote"],title:"Teaser line #1 from DITS",desc:"One juicy line from the book, no context.",todoId:"t5"},
+  {id:"35",date:"2026-06-28",track:"social",cats:["BUW","BUW:Promo"],title:"BUW — why it was so well received 🌿",desc:"Talk about BUW's reception — reader love, what surprised you.",flag:"buw"},
+  {id:"36",date:"2026-06-30",track:"newsletter",cats:[],title:"Format newsletter #6",desc:"24 days out. Pre-order push. ARC readers get the book TOMORROW."},
+  {id:"37",date:"2026-06-30",track:"social",cats:["DITS","DITS:Countdown"],title:"Countdown — 24 days + pre-order push",desc:"Clean buy link post. Cover graphic, date, link.",todoId:"t9"},
+  {id:"38",date:"2026-07-01",track:"newsletter",cats:[],title:"Send newsletter #6",desc:"ARC readers have the book TODAY."},
+  {id:"39",date:"2026-07-01",track:"social",cats:["DITS","ARC"],title:"ARC readers have it now!",desc:"'My ARC team is reading DITS as we speak and I am a nervous wreck.'"},
+  {id:"40",date:"2026-07-01",track:"email",cats:["ARC"],title:"Send DITS to ARC team via BookFunnel",desc:"Deliver through BookFunnel. Review deadline July 24.",flag:"arc",todoId:"t7"},
+  {id:"41",date:"2026-07-03",track:"social",cats:["Fun","Notebook"],title:"The Notebook — hot take incoming 🎬",desc:"'I rewatched The Notebook. I have thoughts.'",flag:"notebook",todoId:"t2"},
+  {id:"42",date:"2026-07-05",track:"social",cats:["DITS","DITS:Quote"],title:"Countdown — 19 days + teaser line #2",desc:"Different vibe from the first teaser."},
+  {id:"43",date:"2026-07-07",track:"newsletter",cats:[],title:"Format newsletter #7",desc:"17 days out. ARC reader reaction. Preview Etsy exclusive."},
+  {id:"44",date:"2026-07-07",track:"social",cats:["DITS","DITS:Countdown"],title:"Countdown — 17 days + ARC reaction",desc:"A reader quote from your ARC team."},
+  {id:"45",date:"2026-07-08",track:"newsletter",cats:[],title:"Send newsletter #7",desc:"ARC love + countdown + Etsy teaser."},
+  {id:"46",date:"2026-07-08",track:"social",cats:["BUW","BUW:Promo"],title:"BUW — grab it before DITS drops 🌿",desc:"'16 days until DITS. If you haven't read BUW yet — now's your moment.'",flag:"buw"},
+  {id:"47",date:"2026-07-09",track:"social",cats:["WIP"],title:"WIP Wednesday #3 (bonus)",desc:"Third and final WIP line."},
+  {id:"48",date:"2026-07-10",track:"social",cats:["Fun","Notebook"],title:"The Notebook — the verdict 🎬",desc:"Follow-up 7 days after the first. Did your opinion change?",flag:"notebook"},
+  {id:"49",date:"2026-07-12",track:"social",cats:["DITS","DITS:Kayak"],title:"Kayak art reveal + Etsy shop",desc:"'Who needs the one bed trope when you can have one kayak? Art exclusively in my Etsy shop.'",flag:"kayak",todoId:"t3"},
+  {id:"50",date:"2026-07-13",track:"social",cats:["DITS","DITS:Quote","DITS:Quote:Swoony"],title:"DITS quote #1",desc:"First quote from the book. Let the writing speak."},
+  {id:"51",date:"2026-07-14",track:"newsletter",cats:[],title:"Format newsletter #8",desc:"10 days out. Etsy shop link, pre-order, ARC reactions."},
+  {id:"52",date:"2026-07-14",track:"social",cats:["DITS","DITS:Countdown"],title:"Countdown — 10 days",desc:"Double digits! Make it feel like an event."},
+  {id:"53",date:"2026-07-15",track:"newsletter",cats:[],title:"Send newsletter #8",desc:"10 days out — Etsy shop, pre-order link, ARC reactions."},
+  {id:"54",date:"2026-07-15",track:"social",cats:["DITS","DITS:Quote","DITS:Quote:Funny"],title:"DITS quote #2",desc:"Second quote — different vibe from the first."},
+  {id:"55",date:"2026-07-16",track:"social",cats:["DITS","DITS:Quote","DITS:Quote:Chemistry"],title:"DITS quote #3 (bonus)",desc:"Dialogue exchange showing chemistry between Stephanie and Cooper."},
+  {id:"56",date:"2026-07-17",track:"social",cats:["DITS","DITS:Countdown"],title:"Countdown — 7 days",desc:"'One week.' Cover graphic, July 24, buy link and Etsy shop front and center."},
+  {id:"57",date:"2026-07-19",track:"social",cats:["DITS","DITS:Countdown"],title:"Countdown — 5 days + social proof",desc:"More ARC reader reactions."},
+  {id:"58",date:"2026-07-20",track:"social",cats:["DITS","DITS:Quote","DITS:Quote:Tension"],title:"DITS quote #4 (6th post)",desc:"Save a really good one for Sunday night."},
+  {id:"59",date:"2026-07-21",track:"newsletter",cats:[],title:"Format launch newsletter",desc:"Buy link, Etsy shop, cover, your feelings."},
+  {id:"60",date:"2026-07-21",track:"social",cats:["DITS","DITS:Countdown"],title:"Countdown — 3 days",desc:"Real and emotional. What this book means to you."},
+  {id:"61",date:"2026-07-22",track:"newsletter",cats:[],title:"Send launch newsletter",desc:"IT'S ALMOST HERE."},
+  {id:"62",date:"2026-07-22",track:"social",cats:["DITS"],title:"Launch eve reel",desc:"Phone video, trending audio, chaotic celebratory energy."},
+  {id:"63",date:"2026-07-23",track:"social",cats:["DITS"],title:"Tomorrow. (bonus post)",desc:"Eve of launch. 'See you on the other side.'",flag:"launch"},
+  {id:"64",date:"2026-07-24",track:"social",cats:["DITS"],title:"IT'S LAUNCH DAY 🎉",desc:"All the links — retailer AND Etsy shop.",flag:"launch",todoId:"t8"},
+  {id:"65",date:"2026-07-25",track:"social",cats:["DITS","DITS:Quote"],title:"DITS quote #5 — post-launch",desc:"One more great line the day after launch."},
+  {id:"66",date:"2026-07-26",track:"social",cats:["Fun"],title:"Reader reactions + thank you",desc:"Share early reviews, DMs, comments. Thank your people."},
+];
+const DC=[
+  {id:"cd1",label:"DITS Launch",date:"2026-07-24",color:"#7A9070"},
+  {id:"cd2",label:"B&H Launch",date:"2027-03-17",color:"#C4788A"},
+  {id:"cd3",label:"ARC Closes",date:"2026-06-14",color:"#C8AA88"},
+];
+const DCATS=[
+  "DITS","DITS:Reveal","DITS:Quote","DITS:Quote:Funny","DITS:Quote:Swoony","DITS:Quote:Tension","DITS:Quote:Chemistry","DITS:Quote:Dialogue",
+  "DITS:Character","DITS:Character:FMC","DITS:Character:MMC","DITS:Countdown","DITS:Promo","DITS:Kayak",
+  "BUW","BUW:Quote","BUW:Reviews","BUW:Tropes","BUW:Character","BUW:Promo","BUW:Reveal",
+  "B&H","B&H:Promo","B&H:Character",
+  "ARC","WIP","Fun","Notebook","Personal",
+];
+const DBOOKS=["DITS","BUW","B&H"];
+const DTYPES=["ARC","WIP","Fun","Notebook","Personal","Reveal","Quote","Character","Countdown","Promo","Kayak"];
+const DFLAGS=["","buw","arc","launch","kayak","notebook","mom","reveal"];
+const DTRACKS=["social","newsletter","email"];
+const DTODOS=[
+  {id:"t1",text:"Build Mr. Darcy Canva graphic (Colin Firth lake + Matthew Macfadyen hand flex stills)",done:false,due:"2026-06-08",priority:"high"},
+  {id:"t2",text:"Watch The Notebook before July 3 post",done:false,due:"2026-07-02",priority:"high"},
+  {id:"t3",text:"Commission kayak art — must be ready before July 12",done:false,due:"2026-07-10",priority:"high"},
+  {id:"t4",text:"Pull 3-5 BUW reader quotes from Goodreads/Amazon for June 12 post",done:false,due:"2026-06-11",priority:"high"},
+  {id:"t5",text:"Pull 5 great lines from DITS manuscript for quote posts",done:false,due:"2026-07-06",priority:"high"},
+  {id:"t6",text:"Set up ARC reader sign-up form before June 3",done:false,due:"2026-06-02",priority:"high"},
+  {id:"t7",text:"Set up BookFunnel delivery for DITS ARC copies",done:false,due:"2026-06-30",priority:"med"},
+  {id:"t8",text:"Set up Etsy shop listing — signed book + kayak art + stickers",done:false,due:"2026-07-09",priority:"med"},
+  {id:"t9",text:"Decide on pre-order availability and set up buy links",done:false,due:"2026-06-28",priority:"med"},
+  {id:"t10",text:"Format DITS for final publishing upload",done:false,due:"2026-07-10",priority:"med"},
+  {id:"t11",text:"Set up newsletter platform and import subscriber list",done:false,due:"2026-05-25",priority:"high"},
+  {id:"t12",text:"Write ARC welcome email template",done:false,due:"2026-06-14",priority:"med"},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+let posts,countdowns,cats,books,types,flags,tracks,todos;
+let currentView="list",activeBookFilters=new Set(),activeTypeFilters=new Set(),activeTrackFilters=new Set();
+let currentNav="schedule",calY,calM,weekOffset=0;
+let editingPostId=null,editingCdId=null,manageTarget=null,manageItems=[];
+let accOpenMain=null,accOpenSub=null,accChosen=[];
+
+const today=new Date();today.setHours(0,0,0,0);
+const DAYS=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const TC={social:"#A6B69A",email:"#C4788A",newsletter:"#C8AA88"};
+const TI={social:"📸",email:"✉️",newsletter:"📰"};
+
+function uid(){return Math.random().toString(36).slice(2,9)}
+function dateDiff(ds){return Math.ceil((new Date(ds+"T12:00:00")-today)/86400000)}
+
+function load(){
+  const g=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):JSON.parse(JSON.stringify(d));}catch(e){return JSON.parse(JSON.stringify(d));}};
+  posts=g("p4",DP);countdowns=g("c4",DC);cats=g("cats4",DCATS);
+  books=g("books4",DBOOKS);types=g("types4",DTYPES);
+  flags=g("flags4",DFLAGS);tracks=g("tracks4",DTRACKS);todos=g("todos4",DTODOS);
+  calY=today.getFullYear();calM=today.getMonth();
+}
+function save(){
+  ["p4","c4","cats4","books4","types4","flags4","tracks4","todos4"].forEach((k,i)=>{
+    localStorage.setItem(k,JSON.stringify([posts,countdowns,cats,books,types,flags,tracks,todos][i]));
+  });
+}
+
+// ── FILTER LOGIC — multi-select independent ───────────────────────────────
+function getFiltered(){
+  let items=posts;
+  if(activeTrackFilters.size) items=items.filter(p=>activeTrackFilters.has(p.track));
+  if(activeBookFilters.size) items=items.filter(p=>(p.cats||[]).some(c=>activeBookFilters.has(c.split(":")[0])));
+  if(activeTypeFilters.size) items=items.filter(p=>(p.cats||[]).some(c=>activeTypeFilters.has(c.split(":")[0])||activeTypeFilters.has(c.split(":")[1])));
+  if(currentNav==="buw") items=items.filter(p=>(p.cats||[]).some(c=>c==="BUW"||c.startsWith("BUW:")));
+  if(currentNav==="dits") items=items.filter(p=>(p.cats||[]).some(c=>c==="DITS"||c.startsWith("DITS:")));
+  if(currentNav==="arc") items=items.filter(p=>(p.cats||[]).includes("ARC")||p.track==="email");
+  return items.sort((a,b)=>a.date.localeCompare(b.date));
+}
+
+// ── COUNTDOWNS ────────────────────────────────────────────────────────────
+function renderCountdowns(){
+  document.getElementById("cd-bar").innerHTML=
+    countdowns.map(cd=>{
+      const d=dateDiff(cd.date);
+      const l=d>0?`${d} days to ${cd.label}`:d===0?`🎉 ${cd.label} Today`:`${cd.label} Passed`;
+      return `<button class="cd-badge" style="background:${cd.color}" onclick="openEditCountdown('${cd.id}')">${l}</button>`;
+    }).join('')+`<button class="cd-add-btn" onclick="openAddCountdown()">+</button>`;
+}
+
+// ── STATS ─────────────────────────────────────────────────────────────────
+function renderStats(){
+  document.getElementById("st-total").textContent=posts.length;
+  document.getElementById("st-social").textContent=posts.filter(p=>p.track==="social").length;
+  document.getElementById("st-nl").textContent=posts.filter(p=>p.track==="newsletter").length;
+  document.getElementById("st-em").textContent=posts.filter(p=>p.track==="email").length;
+  document.getElementById("todo-count-badge").textContent=todos.filter(t=>!t.done).length;
+}
+
+// ── FILTERS ───────────────────────────────────────────────────────────────
+function renderFilters(){
+  // Books
+  document.getElementById("book-filters").innerHTML=
+    books.map(b=>`<button class="chip c-book${activeBookFilters.has(b)?' active':''}" data-book="${b}" onclick="toggleBookFilter('${b}')">${b}</button>`).join('')+
+    `<button class="manage-chip" onclick="openManage('books')"><span>+</span><span style="font-size:9px">Edit</span></button>`;
+  // Types
+  document.getElementById("type-filters").innerHTML=
+    types.map(t=>`<button class="chip c-type${activeTypeFilters.has(t)?' active':''}" data-type="${t}" onclick="toggleTypeFilter('${t}')">${t}</button>`).join('')+
+    `<button class="manage-chip" onclick="openManage('types')"><span>+</span><span style="font-size:9px">Edit</span></button>`;
+}
+function toggleBookFilter(b){
+  if(activeBookFilters.has(b)) activeBookFilters.delete(b); else activeBookFilters.add(b);
+  renderFilters(); render();
+}
+function toggleTypeFilter(t){
+  if(activeTypeFilters.has(t)) activeTypeFilters.delete(t); else activeTypeFilters.add(t);
+  renderFilters(); render();
+}
+function toggleTrackFilter(t){
+  if(activeTrackFilters.has(t)) activeTrackFilters.delete(t); else activeTrackFilters.add(t);
+  renderFilters(); render();
+}
+document.getElementById("track-filters").addEventListener("click",e=>{
+  const ch=e.target.closest("[data-filter]");if(!ch)return;
+  const t=ch.dataset.filter.replace("tk:","");
+  ch.classList.toggle("active");toggleTrackFilter(t);
+});
+
+// ── TAG UTILS ─────────────────────────────────────────────────────────────
+function tagCls(c){
+  const t=c.split(":")[0];
+  const m={DITS:"tg-DITS",BUW:"tg-BUW","B&H":"tg-BH",BH:"tg-BH",bh:"tg-bh",ARC:"tg-ARC",Fun:"tg-Fun",WIP:"tg-WIP",Notebook:"tg-Notebook",Personal:"tg-Personal"};
+  return m[t]||"tg-default";
+}
+function hasTodo(post){return post.todoId&&todos.find(t=>t.id===post.todoId&&!t.done)}
+
+// ── DATE RANGE LABEL ──────────────────────────────────────────────────────
+function weekRange(date){
+  const d=new Date(date+"T12:00:00");
+  const dow=d.getDay();
+  const start=new Date(d);start.setDate(d.getDate()-dow);
+  const end=new Date(start);end.setDate(start.getDate()+6);
+  const fmt=x=>`${MONTHS[x.getMonth()].slice(0,3)} ${x.getDate()}`;
+  return `${fmt(start)} – ${fmt(end)}`;
+}
+
+// ── CARD ──────────────────────────────────────────────────────────────────
+function cardHTML(post){
+  const d=new Date(post.date+"T12:00:00");
+  const dy=DAYS[d.getDay()],num=d.getDate(),mon=MONTHS[d.getMonth()].slice(0,3);
+  const isT=d.getTime()===today.getTime();
+  const topCats=[...new Set((post.cats||[]).map(c=>c.split(":")[0]))].slice(0,2);
+  const tagsHTML=topCats.map(c=>`<span class="ctag ${tagCls(c)}">${c}</span>`).join('');
+  const catPath=(post.cats||[]).filter(c=>c.split(":").length>1).slice(0,1).map(c=>c.split(":").join(" › ")).join('');
+  const flagCls=post.flag?`fl-${post.flag}`:'';
+  const showTime=post.track==="social";
+  const icon=TI[post.track]||'';
+  const tack=hasTodo(post)?`<span class="todo-tack">📌</span>`:'';
+  return `<div class="card tk-${post.track} ${flagCls}">
+    <div class="card-tap" onclick="openQR('${post.id}','')"></div>
+    ${tack}
+    <div class="card-date">
+      <span class="cd-day">${isT?"NOW":dy}</span>
+      <span class="cd-num">${num}</span>
+      <span class="cd-mon">${mon}</span>
+      ${showTime?`<span class="cd-time">9am</span>`:''}
+      <span class="cd-icon">${icon}</span>
+    </div>
+    <div class="card-body">
+      <div class="card-tags">${tagsHTML}</div>
+      ${catPath?`<div class="card-cats">${catPath}</div>`:''}
+      <div class="card-title">${post.title}</div>
+      <div class="card-desc">${post.desc||''}</div>
+    </div>
+    <div class="card-actions">
+      <button class="edit-btn" onclick="event.stopPropagation();openEditPost('${post.id}')">✏️</button>
+    </div>
+  </div>`;
+}
+
+// ── LIST ──────────────────────────────────────────────────────────────────
+function renderList(){
+  const items=getFiltered();
+  if(!items.length) return `<div class="empty-msg">Nothing matches your filters</div>`;
+  const groups={};
+  items.forEach(p=>{
+    const wk=weekRange(p.date);
+    if(!groups[wk]) groups[wk]=[];
+    groups[wk].push(p);
+  });
+  return Object.entries(groups).map(([wk,gi])=>
+    `<div class="range-hdr"><div class="rh-line"></div><div class="rh-lbl">${wk}</div><div class="rh-line"></div></div>`+
+    gi.map(p=>cardHTML(p)).join('')
+  ).join('');
+}
+
+// ── MONTH — continuous scroll ─────────────────────────────────────────────
+function renderMonth(){
+  const filtered=getFiltered();
+  // Render 6 months starting from current
+  let h='<div class="cal-scroll">';
+  for(let mi=0;mi<6;mi++){
+    const m=(calM+mi)%12, y=calY+Math.floor((calM+mi)/12);
+    const firstDay=new Date(y,m,1).getDay();
+    const dim=new Date(y,m+1,0).getDate();
+    h+=`<div class="cal-month-block">
+      <div class="cal-month-title">${MONTHS[m]} ${y}</div>
+      <div class="month-grid">
+        ${DAYS.map(d=>`<div class="dow">${d[0]}</div>`).join('')}`;
+    for(let i=0;i<firstDay;i++) h+=`<div class="cal-day empty"></div>`;
+    for(let d=1;d<=dim;d++){
+      const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const dp=filtered.filter(p=>p.date===ds);
+      const isT=new Date(ds+"T12:00:00").getTime()===today.getTime();
+      const pills=dp.slice(0,3).map(p=>{
+        const bg=TC[p.track]||'#aaa';
+        const t=p.title.replace(/[🌿🎬💐🎉🤿☀️📸✉️📰]/g,'').trim().slice(0,12);
+        return `<div class="cal-pill" style="background:${bg}22;color:${bg}" onclick="event.stopPropagation();openQR('${p.id}','')">${t}</div>`;
+      }).join('');
+      const more=dp.length>3?`<div class="cal-more">+${dp.length-3}</div>`:'';
+      h+=`<div class="cal-day${isT?' today-day':''}" onclick="openDayModal('${ds}')">
+        <div class="cal-day-num">${d}</div>
+        <div class="cal-pills">${pills}${more}</div>
+      </div>`;
+    }
+    h+=`</div></div>`;
+  }
+  return h+'</div>';
+}
+
+// ── WEEK GRID ─────────────────────────────────────────────────────────────
+function getWeekDates(off=0){
+  const s=new Date(today);s.setDate(today.getDate()-today.getDay()+off*7);
+  return Array.from({length:7},(_,i)=>{const d=new Date(s);d.setDate(s.getDate()+i);return d;});
+}
+function weekGridHTML(dates){
+  const filtered=getFiltered();
+  let h=`<div class="week-grid-wrap"><div class="week-grid">`;
+  dates.forEach(d=>{
+    const isT=d.getTime()===today.getTime();
+    h+=`<div class="wk-col-hdr${isT?' today-col':''}">${DAYS[d.getDay()].slice(0,2)} ${d.getDate()}</div>`;
+  });
+  dates.forEach(d=>{
+    const ds=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const dp=filtered.filter(p=>p.date===ds);
+    const isT=d.getTime()===today.getTime();
+    h+=`<div class="wk-col${isT?' today-col-body':''}">`;
+    dp.forEach(p=>{
+      const t=p.title.replace(/[🌿🎬💐🎉🤿☀️📸✉️📰]/g,'').trim().slice(0,18);
+      h+=`<div class="wk-mini tk-${p.track}" onclick="openQR('${p.id}','')">
+        <div class="wk-mini-icon">${TI[p.track]||''}</div>
+        <div class="wk-mini-title">${t}</div>
+      </div>`;
+    });
+    h+=`</div>`;
+  });
+  return h+`</div></div>`;
+}
+function renderWeek(){
+  const dates=getWeekDates(weekOffset);
+  const sl=`${MONTHS[dates[0].getMonth()].slice(0,3)} ${dates[0].getDate()}`;
+  const el=`${MONTHS[dates[6].getMonth()].slice(0,3)} ${dates[6].getDate()}`;
+  return `<div class="wk-nav">
+    <button class="wk-nav-btn" onclick="changeWeek(-1)">‹</button>
+    <div class="wk-title">${sl} – ${el}</div>
+    <button class="wk-nav-btn" onclick="changeWeek(1)">›</button>
+  </div>`+weekGridHTML(dates);
+}
+function changeWeek(d){weekOffset+=d;render();}
+
+function renderNext7(){
+  const dates=Array.from({length:7},(_,i)=>{const d=new Date(today);d.setDate(today.getDate()+i);return d;});
+  const sl=`${MONTHS[dates[0].getMonth()].slice(0,3)} ${dates[0].getDate()}`;
+  const el=`${MONTHS[dates[6].getMonth()].slice(0,3)} ${dates[6].getDate()}`;
+  return `<div style="font-family:var(--fd);font-size:17px;font-style:italic;color:var(--tan);margin-bottom:8px">${sl} – ${el}</div>`+weekGridHTML(dates);
+}
+
+// ── TODO ──────────────────────────────────────────────────────────────────
+function renderTodoSheet(){
+  const pending=todos.filter(t=>!t.done).sort((a,b)=>{const o={high:0,med:1,low:2};return o[a.priority]-o[b.priority];});
+  const done=todos.filter(t=>t.done);
+  let h=`<div class="todo-add-row">
+    <input class="todo-add-input" id="todo-quick" placeholder="Quick add..." onkeydown="if(event.key==='Enter')quickAddTodo()">
+    <button class="todo-add-btn" onclick="openModal('todo-add-modal')">+ Detail</button>
+  </div>`;
+  if(pending.length){
+    pending.forEach(t=>{
+      const due=t.due?`<span class="todo-due">📅 Due: ${t.due}</span>`:'';
+      h+=`<div class="todo-item">
+        <div class="todo-check" onclick="toggleTodo('${t.id}')"></div>
+        <div class="todo-body">
+          <div class="todo-text">${t.text}</div>
+          <span class="todo-priority p-${t.priority}">${t.priority}</span>${due}
+        </div>
+        <button class="todo-del" onclick="deleteTodo('${t.id}')">✕</button>
+      </div>`;
+    });
+  } else { h+=`<div class="empty-msg" style="padding:20px">All done! 🎉</div>`; }
+  if(done.length){
+    h+=`<div class="todo-section-title">Completed (${done.length})</div>`;
+    done.forEach(t=>{
+      h+=`<div class="todo-item done">
+        <div class="todo-check" onclick="toggleTodo('${t.id}')">✓</div>
+        <div class="todo-body"><div class="todo-text">${t.text}</div></div>
+        <button class="todo-del" onclick="deleteTodo('${t.id}')">✕</button>
+      </div>`;
+    });
+  }
+  document.getElementById("todo-sheet-content").innerHTML=h;
+}
+function quickAddTodo(){
+  const inp=document.getElementById("todo-quick"); if(!inp||!inp.value.trim()) return;
+  todos.push({id:uid(),text:inp.value.trim(),done:false,due:'',priority:'med'});
+  save(); renderStats(); renderTodoSheet();
+}
+function toggleTodo(id){
+  const t=todos.find(x=>x.id===id);if(!t)return;
+  t.done=!t.done; save(); renderStats(); render(); renderTodoSheet();
+}
+function deleteTodo(id){
+  todos=todos.filter(x=>x.id!==id); save(); renderStats(); render(); renderTodoSheet();
+}
+function saveTodoDetail(){
+  const text=document.getElementById("todo-text-inp").value.trim(); if(!text) return;
+  todos.push({id:uid(),text,done:false,due:document.getElementById("todo-due-inp").value,priority:document.getElementById("todo-pri-inp").value});
+  save(); closeModal("todo-add-modal"); renderStats(); render(); renderTodoSheet();
+}
+
+// ── DAY MODAL ─────────────────────────────────────────────────────────────
+function openDayModal(ds){
+  const d=new Date(ds+"T12:00:00");
+  document.getElementById("day-modal-date").textContent=`${DAYS[d.getDay()]}, ${MONTHS[d.getMonth()]} ${d.getDate()}`;
+  const dp=posts.filter(p=>p.date===ds);
+  document.getElementById("day-modal-items").innerHTML=dp.length?dp.map(p=>cardHTML(p)).join(''):`<div class="empty-msg" style="padding:20px">Nothing scheduled</div>`;
+  openModal("day-modal");
+}
+
+// ── EDIT POST ─────────────────────────────────────────────────────────────
+function openEditPost(id){
+  closeModal("day-modal");
+  editingPostId=id;
+  const p=id?posts.find(x=>x.id===id):null;
+  document.getElementById("edit-modal-title").textContent=p?"Edit Post":"New Post";
+  document.getElementById("ef-title").value=p?p.title:"";
+  document.getElementById("ef-desc").value=p?p.desc:"";
+  document.getElementById("ef-date").value=p?p.date:"";
+  document.getElementById("ef-del-btn").style.display=p?"":"none";
+  document.getElementById("ef-track").innerHTML=tracks.map(t=>`<option value="${t}"${p&&p.track===t?' selected':''}>${t}</option>`).join('');
+  document.getElementById("ef-flag").innerHTML=flags.map(f=>`<option value="${f}"${p&&(p.flag||'')===(f||'')?' selected':''}>${f||'— None —'}</option>`).join('');
+  accChosen=p?[...(p.cats||[])]:[];
+  accOpenMain=null; accOpenSub=null;
+  renderAccPicker();
+  openModal("edit-modal");
+}
+
+// ── ACC PICKER ────────────────────────────────────────────────────────────
+function renderAccPicker(){
+  const tops=[...new Set(cats.map(c=>c.split(":")[0]))];
+  let h=`<div class="acc-level">
+    <div class="acc-sub-lbl">Main category</div>
+    <div class="acc-items">${tops.map(m=>`<button class="acc-chip${accChosen.includes(m)||m===accOpenMain?' sel':''}" onclick="accClickMain('${m}')">${m}</button>`).join('')}</div>
+  </div>`;
+  if(accOpenMain){
+    const subs=[...new Set(cats.filter(c=>c.startsWith(accOpenMain+":")).map(c=>c.split(":").slice(0,2).join(":")))];
+    if(subs.length){
+      h+=`<div class="acc-indent"><div class="acc-level">
+        <div class="acc-sub-lbl">${accOpenMain} › Sub-category</div>
+        <div class="acc-items">${subs.map(s=>{const sn=s.split(":")[1];return `<button class="acc-chip${accChosen.includes(s)||s===accOpenSub?' sel':''}" onclick="accClickSub('${accOpenMain}','${s}')">${sn}</button>`;}).join('')}</div>
+      </div>`;
+      if(accOpenSub){
+        const ss=cats.filter(c=>c.startsWith(accOpenSub+":"));
+        if(ss.length){
+          h+=`<div class="acc-indent"><div class="acc-level">
+            <div class="acc-sub-lbl">${accOpenSub.split(":").join(" › ")} › Detail</div>
+            <div class="acc-items">${ss.map(s=>`<button class="acc-chip${accChosen.includes(s)?' sel':''}" onclick="accClickSS('${s}')">${s.split(":")[2]}</button>`).join('')}</div>
+          </div></div>`;
+        }
+      }
+      h+=`</div>`;
+    }
+  }
+  document.getElementById("acc-cat-picker").innerHTML=h;
+}
+function toggle(arr,v){const i=arr.indexOf(v);if(i>=0)arr.splice(i,1);else arr.push(v);}
+function accClickMain(m){toggle(accChosen,m);accOpenMain=m;accOpenSub=null;renderAccPicker();}
+function accClickSub(main,s){toggle(accChosen,s);accOpenMain=main;accOpenSub=s;renderAccPicker();}
+function accClickSS(ss){toggle(accChosen,ss);renderAccPicker();}
+
+function savePost(){
+  const data={title:document.getElementById("ef-title").value,desc:document.getElementById("ef-desc").value,date:document.getElementById("ef-date").value,track:document.getElementById("ef-track").value,flag:document.getElementById("ef-flag").value||undefined,cats:accChosen};
+  if(editingPostId){const i=posts.findIndex(p=>p.id===editingPostId);posts[i]={...posts[i],...data};}
+  else posts.push({...data,id:uid()});
+  save();closeModal("edit-modal");renderAll();
+}
+function deletePost(){if(!editingPostId||!confirm("Remove?"))return;posts=posts.filter(p=>p.id!==editingPostId);save();closeModal("edit-modal");renderAll();}
+function promptAddOption(type){const v=prompt(`New ${type}:`);if(!v)return;if(type==="track"&&!tracks.includes(v)){tracks.push(v);save();}if(type==="flag"&&!flags.includes(v)){flags.push(v);save();}openEditPost(editingPostId);}
+
+// ── COUNTDOWN ─────────────────────────────────────────────────────────────
+let editCdId=null;
+function openAddCountdown(){editCdId=null;fillCd(null);openModal("cd-modal");}
+function openEditCountdown(id){editCdId=id;fillCd(countdowns.find(c=>c.id===id));openModal("cd-modal");}
+function fillCd(cd){
+  document.getElementById("cd-modal-title").textContent=cd?"Edit":"Add Countdown";
+  document.getElementById("cd-label").value=cd?cd.label:"";
+  document.getElementById("cd-date").value=cd?cd.date:"";
+  document.getElementById("cd-color").value=cd?cd.color:"#7A9070";
+  document.getElementById("cd-del-btn").style.display=cd?"":"none";
+}
+function saveCountdown(){
+  const d={label:document.getElementById("cd-label").value,date:document.getElementById("cd-date").value,color:document.getElementById("cd-color").value};
+  if(editCdId){const i=countdowns.findIndex(c=>c.id===editCdId);countdowns[i]={...countdowns[i],...d};}
+  else countdowns.push({...d,id:uid()});
+  save();closeModal("cd-modal");renderCountdowns();renderSettingsPage();
+}
+function deleteCountdown(){if(!editCdId||!confirm("Remove?"))return;countdowns=countdowns.filter(c=>c.id!==editCdId);save();closeModal("cd-modal");renderCountdowns();renderSettingsPage();}
+
+// ── CATEGORY ──────────────────────────────────────────────────────────────
+function openAddCat(pt,ps){
+  document.getElementById("cat-level").value=pt&&ps?"subsub":pt?"sub":"main";
+  document.getElementById("cat-name").value="";
+  updateCatParents(pt,ps);
+  openModal("cat-modal");
+}
+function updateCatParents(selTop,selSub){
+  const lvl=document.getElementById("cat-level").value;
+  const wrap=document.getElementById("cat-parent-wrap");
+  const sel=document.getElementById("cat-parent");
+  if(lvl==="main"){wrap.style.display="none";return;}
+  wrap.style.display="";
+  if(lvl==="sub"){
+    const tops=[...new Set(cats.map(c=>c.split(":")[0]))];
+    sel.innerHTML=tops.map(t=>`<option value="${t}"${t===selTop?' selected':''}>${t}</option>`).join('');
+  } else {
+    const subs=[...new Set(cats.filter(c=>c.includes(":")).map(c=>c.split(":").slice(0,2).join(":")))];
+    sel.innerHTML=subs.map(s=>`<option value="${s}"${s===`${selTop}:${selSub}`?' selected':''}>${s.split(":").join(" › ")}</option>`).join('');
+  }
+}
+document.getElementById("cat-level").addEventListener("change",()=>updateCatParents(null,null));
+function saveCat(){
+  const name=document.getElementById("cat-name").value.trim();if(!name)return;
+  const lvl=document.getElementById("cat-level").value;
+  const path=lvl==="main"?name:document.getElementById("cat-parent").value+":"+name;
+  if(!cats.includes(path))cats.push(path);
+  if(lvl==="main"&&!books.includes(name))books.push(name);
+  save();closeModal("cat-modal");renderFilters();renderSettingsPage();
+  if(document.getElementById("edit-modal").classList.contains("open")){accOpenMain=null;accOpenSub=null;renderAccPicker();}
+}
+
+// ── MANAGE BOOKS/TYPES ────────────────────────────────────────────────────
+function openManage(target){
+  manageTarget=target;
+  manageItems=target==="books"?[...books]:[...types];
+  document.getElementById("manage-modal-title").textContent=target==="books"?"Manage Books":"Manage Post Types";
+  renderManageList();
+  document.getElementById("manage-new-input").value="";
+  openModal("manage-modal");
+}
+function renderManageList(){
+  document.getElementById("manage-list").innerHTML=manageItems.map((item,i)=>`
+    <div class="manage-item">
+      <span class="manage-drag">⠿</span>
+      <input class="manage-name-input" value="${item}" onchange="manageItems[${i}]=this.value">
+      <button class="si-btn" onclick="moveManage(${i},-1)">↑</button>
+      <button class="si-btn" onclick="moveManage(${i},1)">↓</button>
+      <button class="manage-del" onclick="removeManage(${i})">✕</button>
+    </div>`).join('');
+}
+function moveManage(i,d){const n=i+d;if(n<0||n>=manageItems.length)return;[manageItems[i],manageItems[n]]=[manageItems[n],manageItems[i]];renderManageList();}
+function removeManage(i){manageItems.splice(i,1);renderManageList();}
+function addManageItem(){const v=document.getElementById("manage-new-input").value.trim();if(!v)return;manageItems.push(v);document.getElementById("manage-new-input").value="";renderManageList();}
+function saveManage(){
+  // Collect current values from inputs
+  const inputs=document.querySelectorAll(".manage-name-input");
+  manageItems=Array.from(inputs).map(inp=>inp.value.trim()).filter(Boolean);
+  if(manageTarget==="books") books=manageItems; else types=manageItems;
+  save();closeModal("manage-modal");renderFilters();
+}
+
+// ── SETTINGS PAGE ─────────────────────────────────────────────────────────
+function renderSettingsPage(){
+  document.getElementById("cd-settings-list").innerHTML=
+    countdowns.map(cd=>`<div class="settings-item">
+      <div><div class="si-label">${cd.label}</div><div class="si-sub">${cd.date}</div></div>
+      <div class="si-actions">
+        <button class="si-btn" onclick="openEditCountdown('${cd.id}')">Edit</button>
+        <button class="si-btn del" onclick="if(confirm('Remove?')){countdowns=countdowns.filter(c=>c.id!=='${cd.id}');save();renderCountdowns();renderSettingsPage()}">✕</button>
+      </div>
+    </div>`).join('');
+  const tops=[...new Set(cats.map(c=>c.split(":")[0]))];
+  let h='';
+  tops.forEach(top=>{
+    const subs=[...new Set(cats.filter(c=>c.startsWith(top+":")).map(c=>c.split(":").slice(0,2).join(":")))];
+    h+=`<div class="cat-tree-node">
+      <div class="cat-row"><span class="cat-level-badge cl-main">MAIN</span><span class="cat-name-txt">${top}</span>
+        <div class="si-actions">
+          <button class="si-btn" onclick="openAddCat('${top}',null)">+sub</button>
+          <button class="si-btn del" onclick="if(confirm('Delete ${top} and all sub-categories?')){cats=cats.filter(c=>c!=='${top}'&&!c.startsWith('${top}:'));books=books.filter(b=>b!=='${top}');save();renderFilters();renderSettingsPage()}">✕</button>
+        </div>
+      </div>
+      <div class="cat-indent">
+        ${subs.map(sub=>{
+          const sn=sub.split(":")[1];
+          const ss=cats.filter(c=>c.startsWith(sub+":"));
+          return `<div class="cat-row"><span class="cat-level-badge cl-sub">SUB</span><span class="cat-name-txt">${sn}</span>
+            <div class="si-actions">
+              <button class="si-btn" onclick="openAddCat('${top}','${sn}')">+sub</button>
+              <button class="si-btn del" onclick="if(confirm('Delete?')){cats=cats.filter(c=>c!=='${sub}'&&!c.startsWith('${sub}:'));save();renderFilters();renderSettingsPage()}">✕</button>
+            </div>
+          </div>
+          <div class="cat-indent">${ss.map(s=>`<div class="cat-row"><span class="cat-level-badge cl-subsub">SUB-SUB</span><span class="cat-name-txt">${s.split(":")[2]}</span>
+            <div class="si-actions"><button class="si-btn del" onclick="if(confirm('Delete?')){cats=cats.filter(c=>c!=='${s}');save();renderFilters();renderSettingsPage()}">✕</button></div>
+          </div>`).join('')}</div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  });
+  document.getElementById("cat-settings-tree").innerHTML=h||`<div style="padding:14px;color:#bbb;font-style:italic;font-size:12px">No categories yet</div>`;
+}
+
+// ── MODAL HELPERS ─────────────────────────────────────────────────────────
+function openModal(id){
+  document.getElementById(id).classList.add("open");
+  if(id==="todo-modal") renderTodoSheet();
+}
+function closeModal(id){document.getElementById(id).classList.remove("open");}
+document.querySelectorAll(".modal-ov").forEach(ov=>{
+  ov.addEventListener("click",e=>{if(e.target===ov)ov.classList.remove("open");});
+});
+
+// ── NAV ───────────────────────────────────────────────────────────────────
+document.getElementById("view-toggle").addEventListener("click",e=>{
+  const b=e.target.closest(".vbtn");if(!b)return;
+  document.querySelectorAll(".vbtn").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");currentView=b.dataset.view;render();
+});
+document.querySelectorAll(".nav-item").forEach(item=>{
+  item.addEventListener("click",()=>{
+    document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
+    item.classList.add("active");currentNav=item.dataset.nav;
+    const isSet=currentNav==="settings";
+    ["view-toggle","filter-section"].forEach(id=>document.getElementById(id).style.display=isSet?"none":"");
+    document.querySelector(".stats-bar").style.display=isSet?"none":"";
+    document.getElementById("cd-bar").style.display=isSet?"none":"";
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    if(isSet){document.getElementById("page-settings").classList.add("active");renderSettingsPage();}
+    else{document.getElementById("page-schedule").classList.add("active");render();}
+  });
+});
+
+// ── RENDER ────────────────────────────────────────────────────────────────
+function render(){
+  const el=document.getElementById("page-schedule");
+  if(currentView==="list") el.innerHTML=renderList();
+  else if(currentView==="month") el.innerHTML=renderMonth();
+  else if(currentView==="week") el.innerHTML=renderWeek();
+  else el.innerHTML=renderNext7();
+}
+function renderAll(){renderCountdowns();renderFilters();renderStats();render();}
+
+load();renderAll();
+</script>
+</body>
+</html>
+<script>
+// ── HASHTAG LIBRARY PATCH ────────────────────────────────────────────────
+// Default hashtag groups
+const DHTAGS = [
+  {id:"h1", name:"Book Promo", tags:"#romance #romcom #romancebooks #indiebook #indieauthor #romancereader #bookstagram #booktok #amreading #newrelease #romantasy #cleanromance #sweetromance"},
+  {id:"h2", name:"Clean Romance", tags:"#cleanromance #sweetromance #christianromance #nospice #wholesomeread #bookclub #romancereader #bookstagram #cozyread #feelgoodbook"},
+  {id:"h3", name:"Funny / Meme", tags:"#bookmeme #bookhumor #readersofinstagram #booknerds #bookish #bibliophile #booklover #bookaddict #ireadeverywhere #tbr #tbrpile #bookstagram"},
+  {id:"h4", name:"ARC / Review", tags:"#arcreader #arcreview #advancereaderscopy #bookreview #bookreviewer #bookblogger #bookstagrammer #readingcommunity #bookish #romancereview"},
+  {id:"h5", name:"Author Life", tags:"#indieauthor #selfpublished #writingcommunity #amwriting #writersofinstagram #authorlife #writerlife #writersblock #nanowrimo #bookcommunity"},
+];
+
+let hashtagGroups;
+function loadHtags(){
+  try{const v=localStorage.getItem("htags2");hashtagGroups=v?JSON.parse(v):JSON.parse(JSON.stringify(DHTAGS));}
+  catch(e){hashtagGroups=JSON.parse(JSON.stringify(DHTAGS));}
+}
+function saveHtags(){localStorage.setItem("htags2",JSON.stringify(hashtagGroups));}
+
+// ── PATCH: extend save/load ───────────────────────────────────────────────
+const _origLoad = load;
+window.load = function(){_origLoad(); loadHtags();};
+
+// ── HASHTAG SETTINGS SECTION ──────────────────────────────────────────────
+function renderHtagSettings(){
+  const el=document.getElementById("htag-settings-list");
+  if(!el) return;
+  el.innerHTML=hashtagGroups.map((g,i)=>`
+    <div style="padding:12px 14px;border-bottom:1px solid var(--cream-d)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <input class="ef-input" style="flex:1;font-size:13px;font-weight:500" value="${g.name}"
+          onchange="hashtagGroups[${i}].name=this.value;saveHtags();renderHtagDropdowns()">
+        <button class="si-btn del" onclick="deleteHtagGroup('${g.id}')">✕</button>
+      </div>
+      <textarea class="ef-textarea" style="font-size:11px;min-height:60px;line-height:1.6"
+        onchange="hashtagGroups[${i}].tags=this.value;saveHtags()">${g.tags}</textarea>
+      <div style="font-size:10px;color:#aaa;margin-top:4px">${g.tags.split(' ').filter(t=>t.startsWith('#')).length} hashtags</div>
+    </div>`).join('')+
+    `<div style="padding:12px 14px">
+      <button class="btn-save" onclick="addHtagGroup()" style="margin-top:0">+ New Group</button>
+    </div>`;
+}
+function addHtagGroup(){
+  hashtagGroups.push({id:"h"+Date.now(),name:"New Group",tags:""});
+  saveHtags();renderHtagSettings();renderHtagDropdowns();
+}
+function deleteHtagGroup(id){
+  if(!confirm("Delete this hashtag group?")) return;
+  hashtagGroups=hashtagGroups.filter(g=>g.id!==id);
+  saveHtags();renderHtagSettings();renderHtagDropdowns();
+}
+function renderHtagDropdowns(){
+  // Update all open dropdowns
+  document.querySelectorAll(".htag-select").forEach(sel=>{
+    const cur=sel.value;
+    sel.innerHTML=`<option value="">— No hashtag group —</option>`+
+      hashtagGroups.map(g=>`<option value="${g.id}"${g.id===cur?' selected':''}>${g.name}</option>`).join('');
+  });
+}
+
+// ── PATCH: EDIT POST FIELDS ───────────────────────────────────────────────
+// Override openEditPost to inject new fields
+const _origOpenEdit = window.openEditPost;
+window.openEditPost = function(id){
+  _origOpenEdit(id);
+  const p = id ? posts.find(x=>x.id===id) : null;
+  // Inject fields after modal opens (it's already open from _origOpenEdit)
+  const modal = document.getElementById("edit-modal");
+
+  // Remove existing injected fields to avoid duplicates
+  modal.querySelectorAll(".injected-field").forEach(el=>el.remove());
+
+  // Find the save button to insert before it
+  const saveBtn = modal.querySelector(".btn-save");
+
+  // Purpose label patch — rename Description label
+  const descLabel = modal.querySelector("label[for='ef-desc'], .ef-lbl");
+  if(descLabel && descLabel.textContent.trim()==="Description"){
+    descLabel.textContent="Purpose of the Post";
+  }
+  // Also find via text content
+  modal.querySelectorAll(".ef-lbl").forEach(lbl=>{
+    if(lbl.textContent.trim()==="Description") lbl.textContent="Purpose of the Post";
+  });
+
+  // Build injected HTML
+  const cap = p ? (p.caption||"") : "";
+  const imgUrl = p ? (p.imageUrl||"") : "";
+  const htagId = p ? (p.htagId||"") : "";
+  const extraTags = p ? (p.extraTags||"") : "";
+
+  const div = document.createElement("div");
+  div.className = "injected-field";
+  div.innerHTML = `
+    <div class="ef">
+      <label class="ef-lbl">Caption</label>
+      <textarea class="ef-textarea" id="ef-caption" style="min-height:100px" placeholder="Write your Instagram caption here...">${cap}</textarea>
+    </div>
+    <div class="ef">
+      <label class="ef-lbl">Image / Graphic URL <span style="font-size:9px;color:#aaa">(Google Drive or web link)</span></label>
+      <input class="ef-input" id="ef-image-url" placeholder="https://drive.google.com/..." value="${imgUrl}">
+      <div id="ef-image-preview" style="margin-top:6px"></div>
+    </div>
+    <div class="ef">
+      <label class="ef-lbl">Hashtag Group</label>
+      <select class="ef-select htag-select" id="ef-htag-id" onchange="previewHtags(this.value)">
+        <option value="">— No hashtag group —</option>
+        ${hashtagGroups.map(g=>`<option value="${g.id}"${g.id===htagId?' selected':''}>${g.name}</option>`).join('')}
+      </select>
+      <div id="ef-htag-preview" style="font-size:10px;color:var(--tan);margin-top:5px;line-height:1.6;word-break:break-word"></div>
+    </div>
+    <div class="ef">
+      <label class="ef-lbl">Extra hashtags for this post</label>
+      <input class="ef-input" id="ef-extra-tags" placeholder="#dits #divingintothesun" value="${extraTags}">
+    </div>
+    <button class="btn-save injected-field" onclick="copyToPost()" style="background:var(--pink-d);margin-top:0;margin-bottom:8px">📋 Copy Caption + Hashtags</button>
+  `;
+  saveBtn.parentNode.insertBefore(div, saveBtn);
+
+  // Preview image if URL exists
+  if(imgUrl) showImagePreview(imgUrl);
+  // Preview hashtags if group selected
+  if(htagId) previewHtags(htagId);
+
+  // Wire up image URL preview on blur
+  document.getElementById("ef-image-url").addEventListener("blur",function(){showImagePreview(this.value);});
+};
+
+function showImagePreview(url){
+  const prev=document.getElementById("ef-image-preview");
+  if(!prev) return;
+  if(!url){prev.innerHTML='';return;}
+  // Convert Google Drive share link to direct view
+  let viewUrl=url;
+  const driveMatch=url.match(/\/file\/d\/([^/]+)/);
+  if(driveMatch) viewUrl=`https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w400`;
+  prev.innerHTML=`
+    <div style="border:1px solid var(--gray);border-radius:8px;overflow:hidden;max-width:200px">
+      <img src="${viewUrl}" style="width:100%;display:block" onerror="this.parentElement.innerHTML='<div style=padding:10px;font-size:11px;color:#aaa>Preview unavailable — link may need sharing permissions</div>'">
+    </div>
+    <a href="${url}" target="_blank" style="font-size:10px;color:var(--sage-d);display:block;margin-top:4px">Open in browser ↗</a>`;
+}
+
+function previewHtags(id){
+  const prev=document.getElementById("ef-htag-preview");
+  if(!prev) return;
+  const g=hashtagGroups.find(x=>x.id===id);
+  prev.textContent=g?g.tags:'';
+}
+
+function copyToPost(){
+  const caption=(document.getElementById("ef-caption")||{value:''}).value;
+  const htagId=(document.getElementById("ef-htag-id")||{value:''}).value;
+  const extra=(document.getElementById("ef-extra-tags")||{value:''}).value;
+  const g=hashtagGroups.find(x=>x.id===htagId);
+  const tags=[g?g.tags:'',extra].filter(Boolean).join(' ');
+  const full=[caption,tags].filter(Boolean).join('\n\n');
+  if(!full){alert("Nothing to copy yet — add a caption or hashtags first.");return;}
+  navigator.clipboard.writeText(full).then(()=>{
+    const btn=document.querySelector("button[onclick='copyToPost()']");
+    if(btn){const orig=btn.textContent;btn.textContent="✅ Copied!";setTimeout(()=>btn.textContent=orig,2000);}
+  }).catch(()=>{
+    // Fallback
+    const ta=document.createElement("textarea");
+    ta.value=full;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);
+    alert("Copied to clipboard!");
+  });
+}
+
+// ── PATCH: SAVE POST — include new fields ─────────────────────────────────
+const _origSavePost = window.savePost;
+window.savePost = function(){
+  // Collect new fields before calling original save
+  const capEl=document.getElementById("ef-caption");
+  const imgEl=document.getElementById("ef-image-url");
+  const htagEl=document.getElementById("ef-htag-id");
+  const extraEl=document.getElementById("ef-extra-tags");
+  if(editingPostId){
+    const i=posts.findIndex(p=>p.id===editingPostId);
+    if(i>=0){
+      if(capEl) posts[i].caption=capEl.value;
+      if(imgEl) posts[i].imageUrl=imgEl.value;
+      if(htagEl) posts[i].htagId=htagEl.value;
+      if(extraEl) posts[i].extraTags=extraEl.value;
+    }
+  } else {
+    // Will be added by original, we patch after
+    const origLen=posts.length;
+    _origSavePost();
+    if(posts.length>origLen){
+      const newPost=posts[posts.length-1];
+      if(capEl) newPost.caption=capEl.value;
+      if(imgEl) newPost.imageUrl=imgEl.value;
+      if(htagEl) newPost.htagId=htagEl.value;
+      if(extraEl) newPost.extraTags=extraEl.value;
+      save();
+    }
+    return;
+  }
+  _origSavePost();
+};
+
+// ── PATCH: SETTINGS PAGE — add hashtag section ────────────────────────────
+const _origRenderSettings = window.renderSettingsPage;
+window.renderSettingsPage = function(){
+  _origRenderSettings();
+  // Inject hashtag section if not present
+  let htSection=document.getElementById("htag-settings-section");
+  if(!htSection){
+    htSection=document.createElement("div");
+    htSection.id="htag-settings-section";
+    htSection.className="settings-section";
+    htSection.innerHTML=`
+      <div class="settings-hdr">
+        <div class="settings-title"># Hashtag Library</div>
+        <button class="settings-add" onclick="addHtagGroup()">+ New Group</button>
+      </div>
+      <div id="htag-settings-list"></div>`;
+    // Insert before the reset button
+    const resetBtn=document.querySelector("#page-settings .btn-ghost");
+    if(resetBtn) resetBtn.parentNode.insertBefore(htSection,resetBtn);
+    else document.getElementById("page-settings").appendChild(htSection);
+  }
+  renderHtagSettings();
+};
+
+// ── PATCH: CARD — show caption/image indicator ────────────────────────────
+// Add small indicator on cards that have captions or images
+const _origCardHTML = window.cardHTML;
+window.cardHTML = function(post){
+  let html = _origCardHTML(post);
+  const indicators = [];
+  if(post.caption) indicators.push(`<span style="font-size:9px;background:var(--sage-l);color:var(--sage-d);padding:1px 5px;border-radius:8px;font-weight:500">✍️ caption</span>`);
+  if(post.imageUrl) indicators.push(`<span style="font-size:9px;background:var(--pink-l);color:var(--pink-d);padding:1px 5px;border-radius:8px;font-weight:500">🖼 image</span>`);
+  if(indicators.length){
+    html=html.replace('</div>\n    <div class="card-actions">',
+      `<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">${indicators.join('')}</div></div>\n    <div class="card-actions">`);
+  }
+  return html;
+};
+
+// ── INIT PATCH ────────────────────────────────────────────────────────────
+loadHtags();
+</script>
+<script>
+// ── QUICK REFERENCE SHEET ─────────────────────────────────────────────────
+// Inject modal HTML
+(function(){
+  const ov = document.createElement("div");
+  ov.className = "modal-ov";
+  ov.id = "qr-modal";
+  ov.innerHTML = `<div class="modal" id="qr-sheet">
+    <div class="modal-handle"></div>
+    <div id="qr-content"></div>
+  </div>`;
+  document.body.appendChild(ov);
+  ov.addEventListener("click", e => { if(e.target===ov) closeModal("qr-modal"); });
+})();
+
+// Inject purge modal
+(function(){
+  const ov = document.createElement("div");
+  ov.className = "modal-ov";
+  ov.id = "purge-modal";
+  ov.innerHTML = `<div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-top">
+      <div class="modal-title">🧹 Free Up Space</div>
+      <button class="modal-close-btn" onclick="closeModal('purge-modal')">✕</button>
+    </div>
+    <p style="font-size:12px;color:#888;margin-bottom:14px">Select what you'd like to clean up. This cannot be undone.</p>
+    <div class="ef">
+      <label class="ef-lbl">What to delete</label>
+      <div style="display:flex;flex-direction:column;gap:8px" id="purge-cats">
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px"><input type="checkbox" value="social"> Social Posts</label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px"><input type="checkbox" value="newsletter"> Newsletter Tasks</label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px"><input type="checkbox" value="email"> Emails</label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px"><input type="checkbox" value="todos"> Completed To-Dos</label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500"><input type="checkbox" value="all" onchange="togglePurgeAll(this)"> Everything</label>
+      </div>
+    </div>
+    <div class="ef">
+      <label class="ef-lbl">How old</label>
+      <select class="ef-select" id="purge-age">
+        <option value="0">All of it</option>
+        <option value="7">1 week old</option>
+        <option value="30" selected>1 month old</option>
+        <option value="90">3 months old</option>
+      </select>
+    </div>
+    <button class="btn-save" onclick="runPurge()" style="background:var(--pink-d)">Delete Selected</button>
+    <div style="margin-top:14px;padding:12px;background:var(--cream-d);border-radius:10px">
+      <div style="font-size:11px;font-weight:500;margin-bottom:8px">Set as default?</div>
+      <div style="font-size:11px;color:#888;margin-bottom:10px">Run this automatically so you never have to think about it.</div>
+      <div style="display:flex;gap:8px">
+        <button class="si-btn" onclick="savePurgeDefault(true)" style="flex:1;padding:8px">Yes, automate it</button>
+        <button class="si-btn" onclick="savePurgeDefault(false)" style="flex:1;padding:8px">Ask me in a week</button>
+      </div>
+    </div>
+  </div>`;
+  document.body.appendChild(ov);
+  ov.addEventListener("click", e => { if(e.target===ov) closeModal("purge-modal"); });
+})();
+
+function togglePurgeAll(cb){
+  document.querySelectorAll("#purge-cats input[type=checkbox]").forEach(c=>{
+    if(c!==cb) c.checked=cb.checked;
+  });
+}
+
+// ── OVERRIDE openDayModal to use quick reference ───────────────────────────
+// openDayModal = tapping open calendar day space → show ALL items for that day
+window.openDayModal = function(ds){
+  const d = new Date(ds+"T12:00:00");
+  const dayPosts = posts.filter(p=>p.date===ds);
+  const dateLabel = `${DAYS[d.getDay()]}, ${MONTHS[d.getMonth()]} ${d.getDate()}`;
+
+  if(!dayPosts.length){
+    document.getElementById("day-modal-date").textContent = dateLabel;
+    document.getElementById("day-modal-items").innerHTML = `
+      <div class="empty-msg" style="padding:20px 20px 10px">Nothing scheduled</div>
+      <div style="padding:0 14px 20px;text-align:center">
+        <button onclick="prefillAndOpen('${ds}');closeModal('day-modal')"
+          style="background:var(--sage-d);color:var(--white);border:none;border-radius:12px;padding:12px 24px;font-family:var(--fb);font-size:13px;font-weight:500;cursor:pointer;letter-spacing:.04em">
+          + Add something for this day
+        </button>
+      </div>`;
+    openModal("day-modal");
+    return;
+  }
+
+  // Always show the full day list when tapping the open calendar space
+  document.getElementById("day-modal-date").textContent = dateLabel;
+  document.getElementById("day-modal-items").innerHTML = dayPosts.map(p=>`
+    <div class="card tk-${p.track}" style="cursor:pointer;margin-bottom:7px" onclick="event.stopPropagation();openQR('${p.id}','${dateLabel}')">
+      <div class="card-date" style="width:52px">
+        <span class="cd-icon" style="font-size:16px">${TI[p.track]||'📋'}</span>
+      </div>
+      <div class="card-body" style="padding:10px 12px">
+        <div class="card-title">${p.title}</div>
+        <div class="card-desc" style="-webkit-line-clamp:1">${p.desc||p.caption||''}</div>
+      </div>
+    </div>`).join('');
+  openModal("day-modal");
+};
+
+// openQR = tapping a specific card anywhere → jump straight to Quick Reference
+window.openQR = function(postId, dateLabel){
+  const post = posts.find(p=>p.id===postId);
+  if(!post) return;
+  if(!dateLabel){
+    const d = new Date(post.date+"T12:00:00");
+    dateLabel = `${DAYS[d.getDay()]}, ${MONTHS[d.getMonth()]} ${d.getDate()}`;
+  }
+  closeModal("day-modal");
+  showQR(post, dateLabel);
+};
+
+function showQR(post, dateLabel){
+  if(!post) return;
+  closeModal("day-modal");
+
+  const hg = hashtagGroups ? hashtagGroups.find(g=>g.id===post.htagId) : null;
+  const isSocial = post.track === "social";
+  const hasImage = !!post.imageUrl;
+  const hasCaption = !!post.caption;
+
+  // Image section
+  let imgHTML = '';
+  if(hasImage){
+    let viewUrl = post.imageUrl;
+    const driveMatch = post.imageUrl.match(/\/file\/d\/([^/]+)/);
+    if(driveMatch) viewUrl = `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w400`;
+    imgHTML = `
+      <div style="margin-bottom:14px">
+        <div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:6px">Graphic</div>
+        <div style="border-radius:10px;overflow:hidden;border:1px solid var(--gray);max-width:260px">
+          <img src="${viewUrl}" style="width:100%;display:block" onerror="this.parentElement.innerHTML='<div style=padding:10px;font-size:11px;color:#aaa>Preview unavailable</div>'">
+        </div>
+        <a href="${post.imageUrl}" target="_blank" style="font-size:10px;color:var(--sage-d);display:block;margin-top:4px">Open image ↗</a>
+      </div>`;
+  } else if(isSocial){
+    imgHTML = `
+      <div style="margin-bottom:14px;padding:12px;background:#fff8f0;border:1px solid #f0c080;border-radius:10px;display:flex;align-items:center;gap:8px">
+        <span style="font-size:18px">⚠️</span>
+        <div>
+          <div style="font-size:12px;font-weight:500;color:#7A5C35">Image needed</div>
+          <div style="font-size:10px;color:#aaa;margin-top:1px">No graphic linked to this post yet</div>
+        </div>
+      </div>`;
+  }
+
+  // Caption section
+  let capHTML = '';
+  if(hasCaption){
+    capHTML = `
+      <div style="margin-bottom:14px">
+        <div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:6px">Caption</div>
+        <div style="background:var(--white);border:1px solid var(--gray);border-radius:10px;padding:12px;font-size:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word">${post.caption}</div>
+        <button onclick="copyCaption('${post.id}')" style="margin-top:6px;background:none;border:1px solid var(--sage-l);border-radius:20px;padding:4px 12px;font-family:var(--fb);font-size:10px;color:var(--sage-d);cursor:pointer" id="copy-cap-btn">📋 Copy caption + hashtags</button>
+      </div>`;
+  } else {
+    capHTML = `
+      <div style="margin-bottom:14px;padding:10px 12px;background:var(--cream-d);border-radius:10px">
+        <div style="font-size:11px;color:#aaa;font-style:italic">No caption written yet</div>
+      </div>`;
+  }
+
+  // Purpose section
+  let purposeHTML = '';
+  if(post.desc){
+    purposeHTML = `
+      <div style="margin-bottom:14px">
+        <div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:4px">Purpose</div>
+        <div style="font-size:12px;color:#666;line-height:1.5">${post.desc}</div>
+      </div>`;
+  }
+
+  // Hashtag group
+  let htagHTML = '';
+  if(hg){
+    htagHTML = `
+      <div style="margin-bottom:14px">
+        <div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:4px">Hashtags — ${hg.name}</div>
+        <div style="font-size:10px;color:var(--tan);line-height:1.6;word-break:break-word">${hg.tags}</div>
+      </div>`;
+  }
+
+  // Tags
+  const topCats = [...new Set((post.cats||[]).map(c=>c.split(":")[0]))].slice(0,3);
+  const tagsHTML = topCats.map(c=>`<span class="ctag ${tagCls(c)}">${c}</span>`).join('');
+
+  document.getElementById("qr-content").innerHTML = `
+    <div style="margin-bottom:4px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+        <span style="font-size:18px">${TI[post.track]||'📋'}</span>
+        <div style="font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:#aaa">${post.track} · ${dateLabel}</div>
+      </div>
+      <div style="font-family:var(--fd);font-size:20px;font-weight:500;line-height:1.3;margin-bottom:8px">${post.title}</div>
+      <div class="card-tags" style="margin-bottom:14px">${tagsHTML}</div>
+    </div>
+    ${imgHTML}
+    ${purposeHTML}
+    ${capHTML}
+    ${htagHTML}
+    <button class="btn-save" onclick="openEditPost('${post.id}');closeModal('qr-modal')" style="margin-top:4px">✏️ Open & Edit</button>
+  `;
+  openModal("qr-modal");
+}
+
+function copyCaption(postId){
+  const post = posts.find(p=>p.id===postId);
+  if(!post) return;
+  const hg = hashtagGroups ? hashtagGroups.find(g=>g.id===post.htagId) : null;
+  const extra = post.extraTags||'';
+  const tags = [hg?hg.tags:'', extra].filter(Boolean).join(' ');
+  const full = [post.caption||'', tags].filter(Boolean).join('\n\n');
+  if(!full){alert("Nothing to copy yet.");return;}
+  navigator.clipboard.writeText(full).then(()=>{
+    const btn=document.getElementById("copy-cap-btn");
+    if(btn){btn.textContent="✅ Copied!";setTimeout(()=>btn.textContent="📋 Copy caption + hashtags",2000);}
+  }).catch(()=>{
+    const ta=document.createElement("textarea");
+    ta.value=full;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);
+    alert("Copied!");
+  });
+}
+
+// ── THUMBNAIL ON CARDS ────────────────────────────────────────────────────
+const _origCardHTML2 = window.cardHTML;
+window.cardHTML = function(post){
+  let html = _origCardHTML2(post);
+  const isSocial = post.track === "social";
+
+  if(post.imageUrl){
+    let viewUrl = post.imageUrl;
+    const driveMatch = post.imageUrl.match(/\/file\/d\/([^/]+)/);
+    if(driveMatch) viewUrl = `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w80`;
+    const thumb = `<div style="position:absolute;bottom:6px;right:34px;z-index:2;width:32px;height:32px;border-radius:6px;overflow:hidden;border:1px solid var(--gray);background:var(--cream)">
+      <img src="${viewUrl}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.style.display='none'">
+    </div>`;
+    html = html.replace('</div>\n    <div class="card-actions">', `</div>${thumb}\n    <div class="card-actions">`);
+  } else if(isSocial && !post.imageUrl){
+    const warn = `<div style="position:absolute;bottom:6px;right:34px;z-index:2;font-size:9px;background:#fff8f0;border:1px solid #f0c080;color:#7A5C35;padding:2px 5px;border-radius:8px;white-space:nowrap">⚠️ img needed</div>`;
+    html = html.replace('</div>\n    <div class="card-actions">', `</div>${warn}\n    <div class="card-actions">`);
+  }
+  return html;
+};
+
+// ── PURGE SYSTEM ──────────────────────────────────────────────────────────
+function runPurge(){
+  const selected = Array.from(document.querySelectorAll("#purge-cats input:checked")).map(c=>c.value);
+  const ageDays = parseInt(document.getElementById("purge-age").value)||0;
+  const cutoff = new Date(today); cutoff.setDate(today.getDate()-ageDays);
+  const cutoffStr = cutoff.toISOString().slice(0,10);
+
+  let deleted = 0;
+  const cats = selected.includes("all") ? ["social","newsletter","email","todos"] : selected;
+
+  if(cats.includes("social")||cats.includes("newsletter")||cats.includes("email")){
+    const tracks = cats.filter(c=>c!=="todos"&&c!=="all");
+    const before = posts.length;
+    posts = posts.filter(p=>{
+      if(!tracks.includes(p.track)) return true;
+      return ageDays===0 ? false : p.date > cutoffStr;
+    });
+    deleted += before - posts.length;
+  }
+  if(cats.includes("todos")){
+    const before = todos.length;
+    todos = todos.filter(t=>{
+      if(!t.done) return true;
+      if(ageDays===0) return false;
+      return t.due ? t.due > cutoffStr : false;
+    });
+    deleted += before - todos.length;
+  }
+
+  save();
+  closeModal("purge-modal");
+  renderAll();
+  alert(`Done! Removed ${deleted} item${deleted!==1?'s':''}.`);
+}
+
+function savePurgeDefault(automate){
+  const selected = Array.from(document.querySelectorAll("#purge-cats input:checked")).map(c=>c.value);
+  const ageDays = parseInt(document.getElementById("purge-age").value)||0;
+  const purgePref = {automate, selected, ageDays, lastRun: today.toISOString().slice(0,10)};
+  localStorage.setItem("purgePref", JSON.stringify(purgePref));
+  closeModal("purge-modal");
+  if(automate) alert("Got it — I'll run this automatically from now on.");
+  else alert("I'll ask again in a week.");
+}
+
+function checkPurgePrompt(){
+  try{
+    const pref = JSON.parse(localStorage.getItem("purgePref")||"null");
+    if(!pref){
+      // First time — check if it's been 7+ days since any post passed
+      const passedPosts = posts.filter(p=>p.date<today.toISOString().slice(0,10));
+      if(passedPosts.length > 5){
+        const lastPrompt = localStorage.getItem("purgeLastPrompt");
+        const now = today.toISOString().slice(0,10);
+        if(!lastPrompt || daysBetween(lastPrompt,now)>=7){
+          localStorage.setItem("purgeLastPrompt",now);
+          setTimeout(()=>openModal("purge-modal"), 1500);
+        }
+      }
+      return;
+    }
+    if(pref.automate){
+      // Run automatically
+      runPurgeAuto(pref);
+    } else {
+      // Ask again if a week has passed
+      if(daysBetween(pref.lastRun, today.toISOString().slice(0,10)) >= 7){
+        setTimeout(()=>openModal("purge-modal"), 1500);
+      }
+    }
+  } catch(e){}
+}
+
+function runPurgeAuto(pref){
+  if(daysBetween(pref.lastRun||"2000-01-01", today.toISOString().slice(0,10)) < 7) return;
+  const cutoff = new Date(today); cutoff.setDate(today.getDate()-(pref.ageDays||30));
+  const cutoffStr = cutoff.toISOString().slice(0,10);
+  const tracks = (pref.selected||[]).filter(c=>c!=="todos"&&c!=="all");
+  if(tracks.length) posts = posts.filter(p=>!tracks.includes(p.track)||p.date>cutoffStr);
+  if((pref.selected||[]).includes("todos")) todos = todos.filter(t=>!t.done||(t.due&&t.due>cutoffStr));
+  pref.lastRun = today.toISOString().slice(0,10);
+  localStorage.setItem("purgePref",JSON.stringify(pref));
+  save(); renderAll();
+}
+
+function daysBetween(a,b){
+  return Math.abs((new Date(b)-new Date(a))/86400000);
+}
+
+// Add purge trigger to settings page
+const _origRenderSettings2 = window.renderSettingsPage;
+window.renderSettingsPage = function(){
+  _origRenderSettings2();
+  let purgeSection = document.getElementById("purge-settings-section");
+  if(!purgeSection){
+    purgeSection = document.createElement("div");
+    purgeSection.id = "purge-settings-section";
+    purgeSection.className = "settings-section";
+    purgeSection.innerHTML = `
+      <div class="settings-hdr">
+        <div class="settings-title">🧹 Storage & Purge</div>
+      </div>
+      <div style="padding:14px">
+        <p style="font-size:12px;color:#888;margin-bottom:12px">Free up space by deleting old posts, completed tasks, and sent newsletters.</p>
+        <button class="btn-save" onclick="openModal('purge-modal')" style="margin-top:0">Run Cleanup Now</button>
+        <button class="btn-ghost" onclick="localStorage.removeItem('purgePref');localStorage.removeItem('purgeLastPrompt');alert('Purge preferences reset.')" style="margin-top:8px">Reset purge preferences</button>
+      </div>`;
+    const resetBtn = document.querySelector("#page-settings .btn-ghost");
+    if(resetBtn) resetBtn.parentNode.insertBefore(purgeSection, resetBtn);
+  }
+};
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+setTimeout(checkPurgePrompt, 2000);
+
+// Pre-fill date and open edit modal for a specific day
+window.prefillAndOpen = function(ds){
+  openEditPost(null);
+  setTimeout(()=>{
+    const dateField = document.getElementById("ef-date");
+    if(dateField) dateField.value = ds;
+  }, 100);
+};
+</script>
+<script>
+// ── NEW ITEM FLOW ──────────────────────────────────────────────────────────
+let currentItemType = null;
+let selectedFlag = "";
+let editingItemId = null;
+
+// Get upcoming Tuesdays
+function getUpcomingTuesdays(count=12){
+  const tues = [];
+  const d = new Date(today);
+  // Find next Tuesday
+  while(d.getDay() !== 2) d.setDate(d.getDate()+1);
+  for(let i=0;i<count;i++){
+    const nd = new Date(d);
+    tues.push(nd.toISOString().slice(0,10));
+    d.setDate(d.getDate()+7);
+  }
+  return tues;
+}
+
+function fmtDate(ds){
+  const d = new Date(ds+"T12:00:00");
+  return `${DAYS[d.getDay()]}, ${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}`;
+}
+
+// ── OVERRIDE openEditPost ──────────────────────────────────────────────────
+window.openEditPost = function(id){
+  closeModal("day-modal");
+  closeModal("qr-modal");
+  editingItemId = id;
+  currentItemType = null;
+  selectedFlag = "";
+
+  const picker = document.getElementById("ef-type-picker");
+  const dynamic = document.getElementById("ef-dynamic-fields");
+  const footer = document.getElementById("ef-footer");
+  const delBtn = document.getElementById("ef-del-btn");
+  const title = document.getElementById("edit-modal-title");
+
+  // Reset
+  dynamic.innerHTML = "";
+  footer.style.display = "none";
+  document.querySelectorAll(".type-pick-btn").forEach(b=>b.classList.remove("selected"));
+
+  if(id){
+    // Editing existing — skip type picker, load fields directly
+    const p = posts.find(x=>x.id===id);
+    if(!p) return;
+    title.textContent = "Edit Item";
+    picker.style.display = "none";
+    currentItemType = p.track;
+    renderDynamicFields(p.track, p);
+    footer.style.display = "";
+    delBtn.style.display = "";
+  } else {
+    // New item — show type picker
+    title.textContent = "New Item";
+    picker.style.display = "";
+    delBtn.style.display = "none";
+  }
+
+  openModal("edit-modal");
+};
+
+window.prefillAndOpen = function(ds){
+  openEditPost(null);
+  // Store date for after type selection
+  window._prefillDate = ds;
+};
+
+function selectItemType(type){
+  currentItemType = type;
+  document.querySelectorAll(".type-pick-btn").forEach(b=>b.classList.remove("selected"));
+  event.target.closest(".type-pick-btn").classList.add("selected");
+  document.getElementById("ef-type-picker").style.display = "none";
+
+  const p = {date: window._prefillDate || "", track: type, cats:[], title:"", desc:"", caption:"", imageUrl:"", htagId:"", extraTags:"", flag:""};
+  window._prefillDate = null;
+
+  renderDynamicFields(type, p);
+  const footer = document.getElementById("ef-footer");
+  footer.style.display = "";
+  document.getElementById("ef-del-btn").style.display = "none";
+}
+
+// ── DYNAMIC FIELD RENDERER ────────────────────────────────────────────────
+function renderDynamicFields(type, p){
+  const el = document.getElementById("ef-dynamic-fields");
+  const typeLabel = {social:"📸 Social Media Post", newsletter:"📰 Newsletter Item", email:"✉️ Email", event:"📅 Event", other:"📝 Other"}[type]||type;
+
+  // Change badge to allow re-picking type on new items
+  const badge = editingItemId ? "" : `<div class="type-selected-badge" onclick="resetTypePicker()">← ${typeLabel}</div>`;
+
+  let fields = "";
+
+  // SHARED: title + date always first (categories+flag prepended for social in its block)
+  fields += `
+    <div class="ef"><label class="ef-lbl">Title</label>
+      <input class="ef-input" id="ef-title" value="${p.title||''}"></div>
+    <div class="ef"><label class="ef-lbl">Date</label>
+      <input class="ef-input" id="ef-date" type="date" value="${p.date||''}"></div>`;
+
+  if(type === "social"){
+    fields = `
+` + fields;
+  }
+
+  if(type === "email"){
+    fields += `
+      <div class="ef"><label class="ef-lbl">To (name or label)</label>
+        <input class="ef-input" id="ef-email-to" placeholder="e.g. ARC Team" value="${p.emailTo||''}"></div>
+      <div class="ef"><label class="ef-lbl">Email Address</label>
+        <input class="ef-input" id="ef-email-addr" type="email" placeholder="email@example.com" value="${p.emailAddr||''}"></div>
+      <div class="ef"><label class="ef-lbl">Purpose / Subject</label>
+        <input class="ef-input" id="ef-desc" placeholder="What is this email for?" value="${p.desc||''}"></div>
+      <div class="ef"><label class="ef-lbl">Body / Draft</label>
+        <textarea class="ef-textarea" id="ef-caption" style="min-height:120px" placeholder="Draft your email here...">${p.caption||''}</textarea></div>
+      <div class="ef"><label class="ef-lbl">Graphics / Attachments URL</label>
+        <input class="ef-input" id="ef-image-url" placeholder="Google Drive link..." value="${p.imageUrl||''}"></div>
+      ${completionBlock(p)}`;
+  }
+
+  else if(type === "newsletter"){
+    const tuesdays = getUpcomingTuesdays(16);
+    const tuesdayOptions = tuesdays.map(ds=>`<option value="${ds}"${p.newsletterDate===ds?' selected':''}>${fmtDate(ds)}</option>`).join('');
+    fields += `
+      <div class="ef"><label class="ef-lbl">Associated Newsletter</label>
+        <div style="font-size:11px;color:#aaa;margin-bottom:5px">Newsletters go out Tuesdays. Which week does this belong to?</div>
+        <select class="ef-select" id="ef-newsletter-date">
+          <option value="">— Select a Tuesday —</option>
+          ${tuesdayOptions}
+        </select></div>
+      <div class="ef"><label class="ef-lbl">Purpose of this item</label>
+        <input class="ef-input" id="ef-desc" placeholder="e.g. Format links for June newsletter" value="${p.desc||''}"></div>
+      <div class="ef"><label class="ef-lbl">Notes / Draft text</label>
+        <textarea class="ef-textarea" id="ef-caption" style="min-height:80px" placeholder="Any notes, copy, or links to include...">${p.caption||''}</textarea></div>
+      ${completionBlock(p)}`;
+  }
+
+  else if(type === "event"){
+    fields += `
+      <div class="ef"><label class="ef-lbl">Time</label>
+        <input class="ef-input" id="ef-event-time" type="time" value="${p.eventTime||''}"></div>
+      <div class="ef"><label class="ef-lbl">Location</label>
+        <input class="ef-input" id="ef-event-location" placeholder="Address or virtual link" value="${p.eventLocation||''}"></div>
+      <div class="ef"><label class="ef-lbl">Notes</label>
+        <textarea class="ef-textarea" id="ef-desc" placeholder="What to bring, who's attending, details..." style="min-height:80px">${p.desc||''}</textarea></div>
+      ${completionBlock(p)}`;
+  }
+
+  else if(type === "social"){
+    // Build flag buttons
+    const flagList = ["buw","arc","launch","kayak","notebook","mom","reveal"];
+    const flagBtns = flagList.map(f=>`<button class="flag-btn${(p.flag||'')=== f?' active':''}" onclick="toggleFlag('${f}',this)">${f}</button>`).join('');
+    selectedFlag = p.flag||"";
+
+    // Hashtag group dropdown
+    const htagOpts = (hashtagGroups||[]).map(g=>`<option value="${g.id}"${g.id===p.htagId?' selected':''}>${g.name}</option>`).join('');
+
+    fields += `
+  
+      <div class="ef">
+        <label class="ef-lbl">Hashtag Group</label>
+        <select class="ef-select htag-select" id="ef-htag-id" onchange="previewHtags(this.value)">
+          <option value="">— No hashtag group —</option>
+          ${htagOpts}
+        </select>
+        <div id="ef-htag-preview" style="font-size:10px;color:var(--tan);margin-top:5px;line-height:1.6;word-break:break-word"></div>
+      </div>
+      <div class="ef"><label class="ef-lbl">Extra hashtags for this post</label>
+        <input class="ef-input" id="ef-extra-tags" placeholder="#dits #divingintothesun" value="${p.extraTags||''}"></div>
+      <div class="ef"><label class="ef-lbl">Purpose of the Post</label>
+        <textarea class="ef-textarea" id="ef-desc" placeholder="What is this post trying to achieve?" style="min-height:60px">${p.desc||''}</textarea></div>
+      <div class="ef"><label class="ef-lbl">Caption</label>
+        <textarea class="ef-textarea" id="ef-caption" style="min-height:100px" placeholder="Write your Instagram caption here...">${p.caption||''}</textarea></div>
+      <div class="ef"><label class="ef-lbl">Image / Graphic URL</label>
+        <input class="ef-input" id="ef-image-url" placeholder="Google Drive or web link..." value="${p.imageUrl||''}" onblur="showImagePreview(this.value)">
+        <div id="ef-image-preview" style="margin-top:6px"></div>
+      </div>
+      <button onclick="copyToPost()" style="width:100%;background:var(--pink-d);color:var(--white);border:none;border-radius:12px;padding:12px;font-family:var(--fb);font-size:13px;font-weight:500;cursor:pointer;margin-bottom:12px;transition:background .3s" id="copy-post-btn">📋 Copy Caption + Hashtags</button>`;
+
+    // Trigger acc picker render after DOM update
+    setTimeout(()=>{
+      accChosen = p.cats||[];
+      accOpenMain = null; accOpenSub = null;
+      renderAccPicker();
+      if(p.imageUrl) showImagePreview(p.imageUrl);
+      if(p.htagId) previewHtags(p.htagId);
+    }, 50);
+  }
+
+  else {
+    // Other
+    fields += `
+      <div class="ef"><label class="ef-lbl">Purpose / Description</label>
+        <textarea class="ef-textarea" id="ef-desc" style="min-height:80px">${p.desc||''}</textarea></div>
+      <div class="ef"><label class="ef-lbl">Notes</label>
+        <textarea class="ef-textarea" id="ef-caption" style="min-height:80px">${p.caption||''}</textarea></div>
+      ${completionBlock(p)}`;
+  }
+
+  el.innerHTML = badge + fields;
+
+  // Restore completion state if exists
+  if(p.completed !== undefined) updateCompletionUI(p.completed);
+}
+
+function completionBlock(p){
+  const done = p.completed === true;
+  const scheduled = p.rescheduleDate||"";
+  return `<div class="completion-box">
+    <div class="comp-title">Was this task completed?</div>
+    <div class="comp-btns">
+      <button class="comp-btn yes${done?' active-comp':''}" id="comp-yes-btn" onclick="markCompletion(true)">✅ Yes, done!</button>
+      <button class="comp-btn no${done===false&&p.completed!==undefined?' active-comp':''}" id="comp-no-btn" onclick="markCompletion(false)">❌ Not yet</button>
+    </div>
+    <div id="reschedule-box" style="display:${!done&&p.completed===false?'block':'none'}">
+      <div class="reschedule-box">
+        <div style="font-size:12px;font-weight:500;margin-bottom:8px">Want to schedule a day to finish this?</div>
+        <input class="ef-input" id="ef-reschedule-date" type="date" value="${scheduled}" style="margin-bottom:8px">
+        <div style="display:flex;gap:8px">
+          <button class="comp-btn yes" onclick="confirmReschedule()">Schedule it</button>
+          <button class="comp-btn no" onclick="document.getElementById('reschedule-box').style.display='none'">No thanks</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function markCompletion(done){
+  const yesBtn = document.getElementById("comp-yes-btn");
+  const noBtn = document.getElementById("comp-no-btn");
+  const rebox = document.getElementById("reschedule-box");
+  if(yesBtn) yesBtn.style.background = done?"var(--sage-d)":"";
+  if(yesBtn) yesBtn.style.color = done?"white":"";
+  if(noBtn) noBtn.style.background = !done?"var(--pink-d)":"";
+  if(noBtn) noBtn.style.color = !done?"white":"";
+  if(rebox) rebox.style.display = !done?"block":"none";
+  window._completionState = done;
+}
+
+function confirmReschedule(){
+  const d = document.getElementById("ef-reschedule-date");
+  if(d && d.value){
+    flashBtn(document.querySelector(".comp-btn.yes"), "📅 Scheduled!");
+  }
+}
+
+function updateCompletionUI(done){
+  markCompletion(done);
+}
+
+function toggleFlag(flag, btn){
+  selectedFlag = flag;
+  document.querySelectorAll(".flag-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+function resetTypePicker(){
+  currentItemType = null;
+  document.getElementById("ef-type-picker").style.display = "";
+  document.getElementById("ef-dynamic-fields").innerHTML = "";
+  document.getElementById("ef-footer").style.display = "none";
+  document.getElementById("edit-modal-title").textContent = "New Item";
+  document.querySelectorAll(".type-pick-btn").forEach(b=>b.classList.remove("selected"));
+}
+
+// ── BUTTON FLASH FEEDBACK ─────────────────────────────────────────────────
+function flashBtn(btn, confirmText){
+  if(!btn) return;
+  const orig = btn.textContent;
+  const origBg = btn.style.background || "";
+  btn.textContent = confirmText || "✅ Saved!";
+  btn.style.background = "var(--sage)";
+  btn.style.color = "white";
+  btn.classList.add("btn-flash");
+  setTimeout(()=>{
+    btn.textContent = orig;
+    btn.style.background = origBg;
+    btn.style.color = "";
+    btn.classList.remove("btn-flash");
+  }, 1800);
+}
+
+// Override copyToPost to add flash
+window.copyToPost = function(){
+  const caption = (document.getElementById("ef-caption")||{value:''}).value;
+  const htagId = (document.getElementById("ef-htag-id")||{value:''}).value;
+  const extra = (document.getElementById("ef-extra-tags")||{value:''}).value;
+  const g = (hashtagGroups||[]).find(x=>x.id===htagId);
+  const tags = [g?g.tags:'', extra].filter(Boolean).join(' ');
+  const full = [caption, tags].filter(Boolean).join('\n\n');
+  if(!full){ alert("Add a caption or hashtags first."); return; }
+  navigator.clipboard.writeText(full).then(()=>{
+    flashBtn(document.getElementById("copy-post-btn"), "✅ Copied!");
+  }).catch(()=>{
+    const ta = document.createElement("textarea");
+    ta.value = full; document.body.appendChild(ta); ta.select();
+    document.execCommand("copy"); document.body.removeChild(ta);
+    flashBtn(document.getElementById("copy-post-btn"), "✅ Copied!");
+  });
+};
+
+// ── SAVE ITEM ─────────────────────────────────────────────────────────────
+window.saveItem = function(){
+  const type = currentItemType || "other";
+  const trackMap = {social:"social", newsletter:"newsletter", email:"email", event:"social", other:"social"};
+  const track = trackMap[type]||"social";
+
+  const title = (document.getElementById("ef-title")||{value:''}).value;
+  const date = (document.getElementById("ef-date")||{value:''}).value;
+  const desc = (document.getElementById("ef-desc")||{value:''}).value;
+  const caption = (document.getElementById("ef-caption")||{value:''}).value;
+  const imageUrl = (document.getElementById("ef-image-url")||{value:''}).value;
+  const htagId = (document.getElementById("ef-htag-id")||{value:''}).value;
+  const extraTags = (document.getElementById("ef-extra-tags")||{value:''}).value;
+  const emailTo = (document.getElementById("ef-email-to")||{value:''}).value;
+  const emailAddr = (document.getElementById("ef-email-addr")||{value:''}).value;
+  const newsletterDate = (document.getElementById("ef-newsletter-date")||{value:''}).value;
+  const eventTime = (document.getElementById("ef-event-time")||{value:''}).value;
+  const eventLocation = (document.getElementById("ef-event-location")||{value:''}).value;
+  const rescheduleDate = (document.getElementById("ef-reschedule-date")||{value:''}).value;
+  const completed = window._completionState;
+
+  const data = {
+    title, date, track, desc, caption, imageUrl, htagId, extraTags,
+    flag: selectedFlag||undefined,
+    cats: accChosen||[],
+    emailTo, emailAddr, newsletterDate,
+    eventTime, eventLocation, rescheduleDate,
+    completed,
+    itemType: type,
+  };
+
+  if(editingItemId){
+    const i = posts.findIndex(p=>p.id===editingItemId);
+    if(i>=0) posts[i] = {...posts[i], ...data};
+  } else {
+    posts.push({...data, id:uid()});
+  }
+
+  save();
+  flashBtn(document.getElementById("ef-save-btn"), "✅ Saved!");
+  setTimeout(()=>{ closeModal("edit-modal"); renderAll(); }, 900);
+};
+
+// Wire save button to saveItem
+window.savePost = window.saveItem;
+
+// Also flash the QR copy button
+window.copyCaption = function(postId){
+  const post = posts.find(p=>p.id===postId);
+  if(!post) return;
+  const hg = (hashtagGroups||[]).find(g=>g.id===post.htagId);
+  const extra = post.extraTags||'';
+  const tags = [hg?hg.tags:'', extra].filter(Boolean).join(' ');
+  const full = [post.caption||'', tags].filter(Boolean).join('\n\n');
+  if(!full){ alert("No caption yet."); return; }
+  navigator.clipboard.writeText(full).then(()=>{
+    const btn = document.getElementById("copy-cap-btn");
+    if(btn){ flashBtn(btn, "✅ Copied!"); }
+  }).catch(()=>{
+    const ta = document.createElement("textarea");
+    ta.value = full; document.body.appendChild(ta); ta.select();
+    document.execCommand("copy"); document.body.removeChild(ta);
+    const btn = document.getElementById("copy-cap-btn");
+    if(btn) flashBtn(btn, "✅ Copied!");
+  });
+};
+</script>
