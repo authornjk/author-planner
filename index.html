@@ -122,11 +122,11 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
 .cal-day{background:var(--white);border-radius:6px;padding:3px 2px 4px;cursor:pointer;min-height:68px;overflow:hidden}
 .cal-day.empty{background:transparent;cursor:default}
 .cal-day.today-day{background:var(--cream-d)}
-.cal-day-num{font-size:13px;text-align:center;margin-bottom:2px;line-height:1}
+.cal-day-num{font-size:15px;text-align:center;margin-bottom:2px;line-height:1;font-weight:500}
 .today-day .cal-day-num{font-weight:700;color:var(--sage-d)}
-.cal-pills{display:flex;flex-direction:column;gap:1px;padding:0 1px}
-.cal-pill{font-size:10px;font-weight:500;padding:3px 4px;border-radius:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.4;cursor:pointer}
-.cal-more{font-size:9px;color:#bbb;padding-left:2px}
+.cal-pills{display:flex;flex-direction:column;gap:2px;padding:0 1px}
+.cal-pill{font-size:12px;font-weight:600;padding:3px 5px;border-radius:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.4;cursor:pointer}
+.cal-more{font-size:11px;color:#888;padding-left:2px;font-weight:500}
 
 /* 7-COL WEEK GRID */
 .week-grid-wrap{overflow-x:auto;padding-bottom:4px}
@@ -265,8 +265,8 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
     <div><div class="app-title">Launch Planner</div><div class="app-sub">Author Content Hub</div></div>
   </div>
   <div class="view-toggle" id="view-toggle">
-    <button class="vbtn active" data-view="list">List</button>
-    <button class="vbtn" data-view="month">Month</button>
+    <button class="vbtn" data-view="list">List</button>
+    <button class="vbtn active" data-view="month">Month</button>
     <button class="vbtn" data-view="week">Week</button>
     <button class="vbtn" data-view="next7">Next 7</button>
   </div>
@@ -312,6 +312,13 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
 <div class="main">
   <div class="page active" id="page-schedule"></div>
   <div class="page" id="page-settings">
+    <div class="settings-section">
+      <div class="settings-hdr"><div class="settings-title">Default View</div></div>
+      <div id="default-view-settings" style="padding:12px 14px">
+        <p style="font-size:11px;color:#888;margin-bottom:10px">Choose which view opens by default when you launch the app.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap" id="default-view-btns"></div>
+      </div>
+    </div>
     <div class="settings-section">
       <div class="settings-hdr"><div class="settings-title">Countdowns</div><button class="settings-add" onclick="openAddCountdown()">+ Add</button></div>
       <div id="cd-settings-list"></div>
@@ -570,7 +577,7 @@ const DTODOS=[
 
 // ── STATE ─────────────────────────────────────────────────────────────────
 let posts,countdowns,cats,books,types,flags,tracks,todos;
-let currentView="list",activeBookFilters=new Set(),activeTypeFilters=new Set(),activeTrackFilters=new Set();
+let currentView="month",activeBookFilters=new Set(),activeTypeFilters=new Set(),activeTrackFilters=new Set();
 let currentNav="schedule",calY,calM,weekOffset=0;
 let editingPostId=null,editingCdId=null,manageTarget=null,manageItems=[];
 let accOpenMain=null,accOpenSub=null,accChosen=[];
@@ -590,6 +597,13 @@ function load(){
   books=g("books4",DBOOKS);types=g("types4",DTYPES);
   flags=g("flags4",DFLAGS);tracks=g("tracks4",DTRACKS);todos=g("todos4",DTODOS);
   calY=today.getFullYear();calM=today.getMonth();
+  // Load saved default view
+  const savedDefaultView=localStorage.getItem("defaultView");
+  if(savedDefaultView) currentView=savedDefaultView;
+  // Apply the active button state
+  document.querySelectorAll(".vbtn").forEach(b=>{
+    b.classList.toggle("active",b.dataset.view===currentView);
+  });
 }
 function save(){
   ["p4","c4","cats4","books4","types4","flags4","tracks4","todos4"].forEach((k,i)=>{
@@ -1009,6 +1023,16 @@ function saveManage(){
 
 // ── SETTINGS PAGE ─────────────────────────────────────────────────────────
 function renderSettingsPage(){
+  // Default view picker
+  const dvEl=document.getElementById("default-view-btns");
+  if(dvEl){
+    const savedDV=localStorage.getItem("defaultView")||"month";
+    const views=[{v:"list",l:"List"},{v:"month",l:"Month"},{v:"week",l:"Week"},{v:"next7",l:"Next 7"}];
+    dvEl.innerHTML=views.map(({v,l})=>`<button
+      class="chip${savedDV===v?' active':''}"
+      style="font-size:12px;padding:7px 16px"
+      onclick="setDefaultView('${v}',this)">${l}</button>`).join('');
+  }
   document.getElementById("cd-settings-list").innerHTML=
     countdowns.map(cd=>`<div class="settings-item">
       <div><div class="si-label">${cd.label}</div><div class="si-sub">${cd.date}</div></div>
@@ -1046,6 +1070,13 @@ function renderSettingsPage(){
     </div>`;
   });
   document.getElementById("cat-settings-tree").innerHTML=h||`<div style="padding:14px;color:#bbb;font-style:italic;font-size:12px">No categories yet</div>`;
+}
+
+function setDefaultView(v,btn){
+  localStorage.setItem("defaultView",v);
+  // Update highlight in settings
+  document.querySelectorAll("#default-view-btns .chip").forEach(b=>b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
 }
 
 // ── MODAL HELPERS ─────────────────────────────────────────────────────────
