@@ -919,7 +919,7 @@ function renderTodoSheet(){
             ${dueLabel}${topicBadge}${recurBadge}
           </div>
         </div>
-        <button class="todo-del" onclick="deleteTodo('${t.id}')">✕</button>
+        <button class="todo-del" data-del-id="${t.id}" onclick="deleteTodo('${t.id}')">✕</button>
       </div>`;
     });
   } else {
@@ -932,7 +932,7 @@ function renderTodoSheet(){
       h+=`<div class="todo-item done">
         <div class="todo-check" onclick="toggleTodo('${t.id}')">✓</div>
         <div class="todo-body"><div class="todo-text">${t.text}</div></div>
-        <button class="todo-del" onclick="deleteTodo('${t.id}')">✕</button>
+        <button class="todo-del" data-del-id="${t.id}" onclick="deleteTodo('${t.id}')">✕</button>
       </div>`;
     });
   }
@@ -946,6 +946,17 @@ function recurLabel(recur, days){
   if(recur==='monthly') return 'Monthly';
   if(recur==='custom') return `Every ${days||7} days`;
   return '';
+}
+
+function nextPostDate(dateStr, recur, days){
+  if(!dateStr || !recur) return '';
+  const d = new Date(dateStr+'T12:00:00');
+  if(recur==='daily') d.setDate(d.getDate()+1);
+  else if(recur==='weekly') d.setDate(d.getDate()+7);
+  else if(recur==='biweekly') d.setDate(d.getDate()+14);
+  else if(recur==='monthly') d.setMonth(d.getMonth()+1);
+  else if(recur==='custom') d.setDate(d.getDate()+(parseInt(days)||7));
+  return d.toISOString().slice(0,10);
 }
 
 function nextDueDate(t){
@@ -978,7 +989,32 @@ function toggleTodo(id){
 }
 
 function deleteTodo(id){
-  if(!confirm('Delete this task?')) return;
+  // iOS PWA blocks confirm() — use inline confirmation instead
+  const btn = document.querySelector(`.todo-del[data-id="${id}"]`);
+  // Find the button by scanning rendered items
+  const allDel = document.querySelectorAll('.todo-del');
+  let targetBtn = null;
+  allDel.forEach(b => { if(b.getAttribute('data-del-id')===id) targetBtn=b; });
+  if(targetBtn && !targetBtn.classList.contains('confirming')){
+    targetBtn.classList.add('confirming');
+    targetBtn.textContent = 'Sure?';
+    targetBtn.style.background = '#C4788A';
+    targetBtn.style.color = 'white';
+    targetBtn.style.borderRadius = '8px';
+    targetBtn.style.padding = '4px 8px';
+    // Auto-reset after 3s if not tapped again
+    setTimeout(()=>{
+      if(targetBtn.classList.contains('confirming')){
+        targetBtn.classList.remove('confirming');
+        targetBtn.textContent = '✕';
+        targetBtn.style.background = '';
+        targetBtn.style.color = '';
+        targetBtn.style.padding = '';
+      }
+    }, 3000);
+    return;
+  }
+  // Second tap — confirmed
   todos=todos.filter(x=>x.id!==id);
   save(); renderStats(); render(); renderTodoSheet();
 }
@@ -1017,6 +1053,11 @@ function openTodoEdit(id){
 function toggleRecurOptions(){
   const val = document.getElementById("todo-recur-inp").value;
   document.getElementById("todo-recur-custom-wrap").style.display = val==='custom' ? '' : 'none';
+}
+function togglePostRecur(){
+  const val = document.getElementById("ef-recur") ? document.getElementById("ef-recur").value : '';
+  const wrap = document.getElementById("ef-recur-custom-wrap");
+  if(wrap) wrap.style.display = val==='custom' ? '' : 'none';
 }
 
 function saveTodoDetail(){
@@ -2487,7 +2528,24 @@ function renderDynamicFields(type, p){
     <div class="ef"><label class="ef-lbl">Title</label>
       <input class="ef-input" id="ef-title" value="${p.title||''}"></div>
     <div class="ef"><label class="ef-lbl">Date</label>
-      <input class="ef-input" id="ef-date" type="date" value="${p.date||''}"></div>`;
+      <input class="ef-input" id="ef-date" type="date" value="${p.date||''}"></div>
+    <div class="ef"><label class="ef-lbl">Repeats</label>
+      <select class="ef-select" id="ef-recur" onchange="togglePostRecur()">
+        <option value="">Does not repeat</option>
+        <option value="daily" ${p.recur==='daily'?'selected':''}>Every day</option>
+        <option value="weekly" ${p.recur==='weekly'?'selected':''}>Every week (same day)</option>
+        <option value="biweekly" ${p.recur==='biweekly'?'selected':''}>Every other week</option>
+        <option value="monthly" ${p.recur==='monthly'?'selected':''}>Once a month (same date)</option>
+        <option value="custom" ${p.recur==='custom'?'selected':''}>Custom interval...</option>
+      </select>
+    </div>
+    <div class="ef" id="ef-recur-custom-wrap" style="display:${p.recur==='custom'?'':'none'}">
+      <label class="ef-lbl">Repeat every</label>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input class="ef-input" id="ef-recur-days" type="number" min="1" max="365" value="${p.recurDays||7}" style="width:80px">
+        <span style="font-size:13px;color:#888">days</span>
+      </div>
+    </div>`;
 
   if(type === "social"){
     fields = `
@@ -2722,6 +2780,8 @@ window.saveItem = function(){
   const eventLocation = (document.getElementById("ef-event-location")||{value:''}).value;
   const rescheduleDate = (document.getElementById("ef-reschedule-date")||{value:''}).value;
   const completed = window._completionState;
+  const recur = (document.getElementById("ef-recur")||{value:''}).value;
+  const recurDays = (document.getElementById("ef-recur-days")||{value:'7'}).value;
 
   const data = {
     title, date, track, desc, caption, imageUrl, htagId, extraTags,
@@ -2729,7 +2789,7 @@ window.saveItem = function(){
     cats: accChosen||[],
     emailTo, emailAddr, newsletterDate,
     eventTime, eventLocation, rescheduleDate,
-    completed,
+    completed, recur, recurDays,
     itemType: type,
   };
 
@@ -2743,6 +2803,14 @@ window.saveItem = function(){
     if(window._pendingImageData){
       saveImageForPost(newId, window._pendingImageData);
       window._pendingImageData = null;
+    }
+  }
+
+  // If recurring and marked complete, spawn next occurrence
+  if(recur && completed && !editingItemId){
+    const nextDate = nextPostDate(date, recur, recurDays);
+    if(nextDate){
+      posts.push({...data, id:uid(), date:nextDate, completed:false, id:uid()});
     }
   }
 
