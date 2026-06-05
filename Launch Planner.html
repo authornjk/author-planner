@@ -1944,9 +1944,109 @@ function showQR(post, dateLabel){
     ${purposeHTML}
     ${capHTML}
     ${htagHTML}
-    <button class="btn-save" onclick="openEditPost('${post.id}');closeModal('qr-modal')" style="margin-top:4px">✏️ Open & Edit</button>
+    ${isSocial ? `
+    <div style="display:flex;gap:8px;margin-top:4px;margin-bottom:8px">
+      <button onclick="shareToInstagram('${post.id}')"
+        style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white;border:none;border-radius:12px;padding:12px;font-family:var(--fb);font-size:13px;font-weight:500;cursor:pointer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg>
+        Post to Instagram
+      </button>
+    </div>` : ''}
+    <button class="btn-save" onclick="openEditPost('${post.id}');closeModal('qr-modal')" style="margin-top:0">✏️ Open & Edit</button>
   `;
   openModal("qr-modal");
+}
+
+// ── INSTAGRAM SHARE ──────────────────────────────────────────────────────
+async function shareToInstagram(postId){
+  const post = posts.find(p=>p.id===postId);
+  if(!post) return;
+
+  // Build the text to copy (caption + hashtags)
+  const hg = hashtagGroups ? hashtagGroups.find(g=>g.id===post.htagId) : null;
+  const extra = post.extraTags||'';
+  const tags = [hg?hg.tags:'', extra].filter(Boolean).join(' ');
+  const captionText = [post.caption||'', tags].filter(Boolean).join('\n\n');
+
+  // Step 1: Copy caption to clipboard so it's ready to paste in Instagram
+  if(captionText){
+    try { await navigator.clipboard.writeText(captionText); } catch(e){}
+  }
+
+  // Step 2: Get the image — prefer stored thumbnail, fall back to nothing
+  const storedImg = loadImageForPost(postId);
+
+  if(storedImg){
+    // Convert base64 to a Blob/File
+    const res = await fetch(storedImg);
+    const blob = await res.blob();
+    const file = new File([blob], 'post-graphic.jpg', {type:'image/jpeg'});
+
+    // Try Web Share API (works on iOS Safari when sharing files)
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      try {
+        await navigator.share({
+          files: [file],
+          title: post.title||'',
+        });
+        // After sharing, open Instagram
+        setTimeout(()=>{ window.location.href = 'instagram://'; }, 800);
+        return;
+      } catch(e){
+        // User cancelled share or it failed — fall through to save-to-photos method
+        if(e.name === 'AbortError') return;
+      }
+    }
+
+    // Fallback: Save image to camera roll via a download link, then open Instagram
+    // On iOS this prompts "Save Image" which puts it at the top of the camera roll
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'post-graphic.jpg';
+    a.click();
+    URL.revokeObjectURL(url);
+
+    // Show instructions and open Instagram after a moment
+    showInstagramInstructions(true);
+    setTimeout(()=>{ window.location.href = 'instagram://'; }, 2200);
+
+  } else if(post.imageUrl){
+    // Has a link but no uploaded thumbnail — just open Instagram with caption copied
+    showInstagramInstructions(false);
+    setTimeout(()=>{ window.location.href = 'instagram://'; }, 2200);
+
+  } else {
+    // No image at all — still open Instagram with caption ready
+    showInstagramInstructions(false);
+    setTimeout(()=>{ window.location.href = 'instagram://'; }, 2200);
+  }
+}
+
+function showInstagramInstructions(hasImage){
+  // Show a quick toast/overlay with what to do next
+  const existing = document.getElementById('ig-toast');
+  if(existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.id = 'ig-toast';
+  toast.style.cssText = `
+    position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
+    background:#1a1a2e;color:white;border-radius:14px;
+    padding:14px 18px;font-size:12px;line-height:1.6;
+    max-width:290px;width:90%;z-index:9999;
+    box-shadow:0 4px 24px rgba(0,0,0,0.3);
+    font-family:var(--fb);text-align:center;
+  `;
+  toast.innerHTML = hasImage
+    ? `<div style="font-size:16px;margin-bottom:6px">📸 Almost there!</div>
+       <div style="color:#ccc">Your caption is copied. Image saved to Photos.<br>
+       In Instagram, tap <strong style="color:white">+</strong> and your photo will be at the <strong style="color:white">top</strong> of your camera roll.</div>`
+    : `<div style="font-size:16px;margin-bottom:6px">📋 Caption copied!</div>
+       <div style="color:#ccc">Opening Instagram. Tap <strong style="color:white">+</strong>, pick your graphic, then paste your caption.</div>`;
+
+  document.body.appendChild(toast);
+  setTimeout(()=>{ toast.style.opacity='0'; toast.style.transition='opacity .5s'; setTimeout(()=>toast.remove(),500); }, 5000);
 }
 
 function copyCaption(postId){
