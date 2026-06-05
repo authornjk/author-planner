@@ -10,6 +10,7 @@
 <meta name="theme-color" content="#F2EEE6">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Launch Planner</title>
+<link rel="manifest" href="./manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -204,7 +205,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
 .p-high{background:#fde8e8;color:#9B2335}
 .p-med{background:var(--tan-l);color:#7A5C35}
 .p-low{background:var(--cream-d);color:#888}
-.todo-del{background:none;border:none;color:#ddd;cursor:pointer;font-size:14px;padding:0 2px;flex-shrink:0}
+.todo-del{background:none;border:none;color:#bbb;cursor:pointer;font-size:16px;padding:4px 6px;flex-shrink:0;min-width:32px;min-height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:background .15s,color .15s}.todo-del:hover{background:#fff0f0;color:#C4788A}
 .todo-section-title{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#bbb;margin:12px 0 6px}
 
 /* FORM */
@@ -450,10 +451,11 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-top">
-      <div class="modal-title">Add Task</div>
+      <div class="modal-title" id="todo-modal-title">Add Task</div>
       <button class="modal-close-btn" onclick="closeModal('todo-add-modal')">✕</button>
     </div>
     <div class="ef"><label class="ef-lbl">Task</label><input class="ef-input" id="todo-text-inp" placeholder="e.g. Build Mr. Darcy graphic"></div>
+    <div class="ef"><label class="ef-lbl">Topic / Category (optional)</label><input class="ef-input" id="todo-topic-inp" placeholder="e.g. Newsletter, Social, ARC, Admin..."></div>
     <div class="ef"><label class="ef-lbl">Due Date (optional)</label><input class="ef-input" id="todo-due-inp" type="date"></div>
     <div class="ef"><label class="ef-lbl">Priority</label>
       <select class="ef-select" id="todo-pri-inp">
@@ -462,7 +464,25 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
         <option value="low">🟢 Low</option>
       </select>
     </div>
-    <button class="btn-save" onclick="saveTodoDetail()">Add Task</button>
+    <div class="ef"><label class="ef-lbl">Repeats</label>
+      <select class="ef-select" id="todo-recur-inp" onchange="toggleRecurOptions()">
+        <option value="">Does not repeat</option>
+        <option value="daily">Every day</option>
+        <option value="weekly">Every week (same day)</option>
+        <option value="biweekly">Every other week</option>
+        <option value="monthly">Once a month (same date)</option>
+        <option value="custom">Custom interval...</option>
+      </select>
+    </div>
+    <div class="ef" id="todo-recur-custom-wrap" style="display:none">
+      <label class="ef-lbl">Repeat every</label>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input class="ef-input" id="todo-recur-days-inp" type="number" min="1" max="365" value="7" style="width:80px">
+        <span style="font-size:13px;color:#888">days</span>
+      </div>
+    </div>
+    <input type="hidden" id="todo-edit-id">
+    <button class="btn-save" id="todo-save-btn" onclick="saveTodoDetail()">Add Task</button>
   </div>
 </div>
 
@@ -821,53 +841,247 @@ function renderNext7(){
 }
 
 // ── TODO ──────────────────────────────────────────────────────────────────
+let todoSort = 'due'; // 'due' | 'priority' | 'topic' | 'added'
+
+function sortTodos(list){
+  return [...list].sort((a,b)=>{
+    if(todoSort==='priority'){
+      const o={high:0,med:1,low:2};
+      if(o[a.priority]!==o[b.priority]) return o[a.priority]-o[b.priority];
+      return (a.due||'9999').localeCompare(b.due||'9999');
+    }
+    if(todoSort==='topic'){
+      const ta=(a.topic||'').toLowerCase(), tb=(b.topic||'').toLowerCase();
+      if(ta!==tb) return ta.localeCompare(tb);
+      return (a.due||'9999').localeCompare(b.due||'9999');
+    }
+    if(todoSort==='added'){
+      // uid() is time-based so lexicographic order approximates added order
+      return b.id.localeCompare(a.id);
+    }
+    // Default: due date (soonest first; no-date items go last)
+    const da=a.due||'9999', db=b.due||'9999';
+    if(da!==db) return da.localeCompare(db);
+    const o={high:0,med:1,low:2};
+    return o[a.priority]-o[b.priority];
+  });
+}
+
 function renderTodoSheet(){
-  const pending=todos.filter(t=>!t.done).sort((a,b)=>{const o={high:0,med:1,low:2};return o[a.priority]-o[b.priority];});
-  const done=todos.filter(t=>t.done);
-  let h=`<div class="todo-add-row">
-    <input class="todo-add-input" id="todo-quick" placeholder="Quick add..." onkeydown="if(event.key==='Enter')quickAddTodo()">
-    <button class="todo-add-btn" onclick="openModal('todo-add-modal')">+ Detail</button>
-  </div>`;
+  const todayStr = today.toISOString().slice(0,10);
+  const pending = sortTodos(todos.filter(t=>!t.done));
+  const done = todos.filter(t=>t.done);
+
+  const sortLabels = {due:'📅 Due Date', priority:'🔴 Priority', topic:'🏷 Topic', added:'🕐 Date Added'};
+  let h=`
+    <div class="todo-add-row">
+      <input class="todo-add-input" id="todo-quick" placeholder="Quick add..." onkeydown="if(event.key==='Enter')quickAddTodo()">
+      <button class="todo-add-btn" onclick="openTodoAdd()">+ Detail</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap">
+      <span style="font-size:10px;color:#aaa;font-weight:500;text-transform:uppercase;letter-spacing:.06em">Sort:</span>
+      ${['due','priority','topic','added'].map(s=>`
+        <button onclick="todoSort='${s}';renderTodoSheet()"
+          style="font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid ${todoSort===s?'var(--sage-d)':'var(--gray)'};background:${todoSort===s?'var(--sage-d)':'transparent'};color:${todoSort===s?'white':'#888'};cursor:pointer;font-family:var(--fb)">
+          ${sortLabels[s]}
+        </button>`).join('')}
+    </div>`;
+
   if(pending.length){
+    let lastGroup = null;
     pending.forEach(t=>{
-      const due=t.due?`<span class="todo-due">📅 Due: ${t.due}</span>`:'';
+      // Group headers when sorting by topic
+      if(todoSort==='topic'){
+        const grp = t.topic || 'No Topic';
+        if(grp !== lastGroup){
+          h+=`<div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#bbb;margin:10px 0 4px">${grp}</div>`;
+          lastGroup = grp;
+        }
+      }
+      const isOverdue = t.due && t.due < todayStr;
+      const dueLabel = t.due
+        ? `<span class="todo-due" style="${isOverdue?'color:#C4788A;font-weight:600':''}">
+            ${isOverdue?'⚠️ Overdue: ':'📅 '}${t.due}
+          </span>`
+        : '';
+      const topicBadge = t.topic && todoSort!=='topic'
+        ? `<span style="font-size:9px;background:var(--cream-d);color:#888;padding:1px 6px;border-radius:8px;margin-left:4px">${t.topic}</span>`
+        : '';
+      const recurBadge = t.recur
+        ? `<span style="font-size:9px;background:var(--sage-l);color:var(--sage-d);padding:1px 6px;border-radius:8px;margin-left:4px">🔁 ${recurLabel(t.recur,t.recurDays)}</span>`
+        : '';
       h+=`<div class="todo-item">
         <div class="todo-check" onclick="toggleTodo('${t.id}')"></div>
-        <div class="todo-body">
+        <div class="todo-body" onclick="openTodoEdit('${t.id}')" style="cursor:pointer">
           <div class="todo-text">${t.text}</div>
-          <span class="todo-priority p-${t.priority}">${t.priority}</span>${due}
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:2px;margin-top:3px">
+            <span class="todo-priority p-${t.priority}">${t.priority}</span>
+            ${dueLabel}${topicBadge}${recurBadge}
+          </div>
         </div>
-        <button class="todo-del" onclick="deleteTodo('${t.id}')">✕</button>
+        <button class="todo-del" data-del-id="${t.id}" onclick="deleteTodo('${t.id}')">✕</button>
       </div>`;
     });
-  } else { h+=`<div class="empty-msg" style="padding:20px">All done! 🎉</div>`; }
+  } else {
+    h+=`<div class="empty-msg" style="padding:20px">All done! 🎉</div>`;
+  }
+
   if(done.length){
     h+=`<div class="todo-section-title">Completed (${done.length})</div>`;
     done.forEach(t=>{
       h+=`<div class="todo-item done">
         <div class="todo-check" onclick="toggleTodo('${t.id}')">✓</div>
         <div class="todo-body"><div class="todo-text">${t.text}</div></div>
-        <button class="todo-del" onclick="deleteTodo('${t.id}')">✕</button>
+        <button class="todo-del" data-del-id="${t.id}" onclick="deleteTodo('${t.id}')">✕</button>
       </div>`;
     });
   }
   document.getElementById("todo-sheet-content").innerHTML=h;
 }
+
+function recurLabel(recur, days){
+  if(recur==='daily') return 'Daily';
+  if(recur==='weekly') return 'Weekly';
+  if(recur==='biweekly') return 'Every 2 weeks';
+  if(recur==='monthly') return 'Monthly';
+  if(recur==='custom') return `Every ${days||7} days`;
+  return '';
+}
+
+function nextPostDate(dateStr, recur, days){
+  if(!dateStr || !recur) return '';
+  const d = new Date(dateStr+'T12:00:00');
+  if(recur==='daily') d.setDate(d.getDate()+1);
+  else if(recur==='weekly') d.setDate(d.getDate()+7);
+  else if(recur==='biweekly') d.setDate(d.getDate()+14);
+  else if(recur==='monthly') d.setMonth(d.getMonth()+1);
+  else if(recur==='custom') d.setDate(d.getDate()+(parseInt(days)||7));
+  return d.toISOString().slice(0,10);
+}
+
+function nextDueDate(t){
+  if(!t.due || !t.recur) return '';
+  const d = new Date(t.due+'T12:00:00');
+  if(t.recur==='daily') d.setDate(d.getDate()+1);
+  else if(t.recur==='weekly') d.setDate(d.getDate()+7);
+  else if(t.recur==='biweekly') d.setDate(d.getDate()+14);
+  else if(t.recur==='monthly') d.setMonth(d.getMonth()+1);
+  else if(t.recur==='custom') d.setDate(d.getDate()+(parseInt(t.recurDays)||7));
+  return d.toISOString().slice(0,10);
+}
+
 function quickAddTodo(){
   const inp=document.getElementById("todo-quick"); if(!inp||!inp.value.trim()) return;
-  todos.push({id:uid(),text:inp.value.trim(),done:false,due:'',priority:'med'});
+  todos.push({id:uid(),text:inp.value.trim(),done:false,due:'',priority:'med',topic:'',recur:''});
+  inp.value='';
   save(); renderStats(); renderTodoSheet();
 }
+
 function toggleTodo(id){
-  const t=todos.find(x=>x.id===id);if(!t)return;
-  t.done=!t.done; save(); renderStats(); render(); renderTodoSheet();
+  const t=todos.find(x=>x.id===id); if(!t) return;
+  if(!t.done && t.recur){
+    // Spawn next occurrence before marking done
+    const nextDue = nextDueDate(t);
+    todos.push({id:uid(),text:t.text,done:false,due:nextDue,priority:t.priority,topic:t.topic||'',recur:t.recur,recurDays:t.recurDays||''});
+  }
+  t.done=!t.done;
+  save(); renderStats(); render(); renderTodoSheet();
 }
+
 function deleteTodo(id){
-  todos=todos.filter(x=>x.id!==id); save(); renderStats(); render(); renderTodoSheet();
+  // iOS PWA blocks confirm() — use inline confirmation instead
+  const btn = document.querySelector(`.todo-del[data-id="${id}"]`);
+  // Find the button by scanning rendered items
+  const allDel = document.querySelectorAll('.todo-del');
+  let targetBtn = null;
+  allDel.forEach(b => { if(b.getAttribute('data-del-id')===id) targetBtn=b; });
+  if(targetBtn && !targetBtn.classList.contains('confirming')){
+    targetBtn.classList.add('confirming');
+    targetBtn.textContent = 'Sure?';
+    targetBtn.style.background = '#C4788A';
+    targetBtn.style.color = 'white';
+    targetBtn.style.borderRadius = '8px';
+    targetBtn.style.padding = '4px 8px';
+    // Auto-reset after 3s if not tapped again
+    setTimeout(()=>{
+      if(targetBtn.classList.contains('confirming')){
+        targetBtn.classList.remove('confirming');
+        targetBtn.textContent = '✕';
+        targetBtn.style.background = '';
+        targetBtn.style.color = '';
+        targetBtn.style.padding = '';
+      }
+    }, 3000);
+    return;
+  }
+  // Second tap — confirmed
+  todos=todos.filter(x=>x.id!==id);
+  save(); renderStats(); render(); renderTodoSheet();
 }
+
+function openTodoAdd(){
+  // Reset form for new task
+  document.getElementById("todo-modal-title").textContent = "Add Task";
+  document.getElementById("todo-save-btn").textContent = "Add Task";
+  document.getElementById("todo-save-btn").onclick = saveTodoDetail;
+  document.getElementById("todo-text-inp").value='';
+  document.getElementById("todo-topic-inp").value='';
+  document.getElementById("todo-due-inp").value='';
+  document.getElementById("todo-pri-inp").value='med';
+  document.getElementById("todo-recur-inp").value='';
+  document.getElementById("todo-recur-custom-wrap").style.display='none';
+  document.getElementById("todo-edit-id").value='';
+  openModal("todo-add-modal");
+}
+
+function openTodoEdit(id){
+  const t = todos.find(x=>x.id===id); if(!t) return;
+  document.getElementById("todo-modal-title").textContent = "Edit Task";
+  document.getElementById("todo-save-btn").textContent = "Save Changes";
+  document.getElementById("todo-save-btn").onclick = ()=>saveTodoEdit(id);
+  document.getElementById("todo-text-inp").value = t.text||'';
+  document.getElementById("todo-topic-inp").value = t.topic||'';
+  document.getElementById("todo-due-inp").value = t.due||'';
+  document.getElementById("todo-pri-inp").value = t.priority||'med';
+  document.getElementById("todo-recur-inp").value = t.recur||'';
+  document.getElementById("todo-recur-custom-wrap").style.display = t.recur==='custom'?'':'none';
+  document.getElementById("todo-recur-days-inp").value = t.recurDays||7;
+  document.getElementById("todo-edit-id").value = id;
+  openModal("todo-add-modal");
+}
+
+function toggleRecurOptions(){
+  const val = document.getElementById("todo-recur-inp").value;
+  document.getElementById("todo-recur-custom-wrap").style.display = val==='custom' ? '' : 'none';
+}
+function togglePostRecur(){
+  const val = document.getElementById("ef-recur") ? document.getElementById("ef-recur").value : '';
+  const wrap = document.getElementById("ef-recur-custom-wrap");
+  if(wrap) wrap.style.display = val==='custom' ? '' : 'none';
+}
+
 function saveTodoDetail(){
   const text=document.getElementById("todo-text-inp").value.trim(); if(!text) return;
-  todos.push({id:uid(),text,done:false,due:document.getElementById("todo-due-inp").value,priority:document.getElementById("todo-pri-inp").value});
+  const recur = document.getElementById("todo-recur-inp").value;
+  todos.push({
+    id:uid(), text, done:false,
+    due: document.getElementById("todo-due-inp").value,
+    priority: document.getElementById("todo-pri-inp").value,
+    topic: document.getElementById("todo-topic-inp").value.trim(),
+    recur, recurDays: recur==='custom' ? document.getElementById("todo-recur-days-inp").value : ''
+  });
+  save(); closeModal("todo-add-modal"); renderStats(); render(); renderTodoSheet();
+}
+
+function saveTodoEdit(id){
+  const t=todos.find(x=>x.id===id); if(!t) return;
+  const recur = document.getElementById("todo-recur-inp").value;
+  t.text = document.getElementById("todo-text-inp").value.trim()||t.text;
+  t.topic = document.getElementById("todo-topic-inp").value.trim();
+  t.due = document.getElementById("todo-due-inp").value;
+  t.priority = document.getElementById("todo-pri-inp").value;
+  t.recur = recur;
+  t.recurDays = recur==='custom' ? document.getElementById("todo-recur-days-inp").value : '';
   save(); closeModal("todo-add-modal"); renderStats(); render(); renderTodoSheet();
 }
 
@@ -1121,6 +1335,36 @@ function renderAll(){renderCountdowns();renderFilters();renderStats();render();}
 
 load();renderAll();
 </script>
+<script>
+// ── SERVICE WORKER REGISTRATION ───────────────────────────────────────────
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js', { scope: './' })
+      .then(reg => {
+        console.log('SW registered:', reg.scope);
+        // Listen for messages from SW (e.g. notification tap → open check-in)
+        navigator.serviceWorker.addEventListener('message', event => {
+          if(event.data && event.data.type === 'OPEN_CHECKIN'){
+            if(typeof showReadinessModal === 'function') showReadinessModal();
+          }
+        });
+      })
+      .catch(err => console.warn('SW registration failed:', err));
+  });
+}
+
+// ── URL ACTION SHORTCUTS ──────────────────────────────────────────────────
+// Handle home screen shortcut actions (?action=checkin, ?action=newpost)
+window.addEventListener('load', () => {
+  const params = new URLSearchParams(window.location.search);
+  const action = params.get('action');
+  if(action === 'checkin'){
+    setTimeout(() => { if(typeof showReadinessModal === 'function') showReadinessModal(); }, 800);
+  } else if(action === 'newpost'){
+    setTimeout(() => { if(typeof openEditPost === 'function') openEditPost(null); }, 800);
+  }
+});
+</script>
 </body>
 </html>
 <script>
@@ -1254,6 +1498,24 @@ function showImagePreview(url){
   const prev=document.getElementById("ef-image-preview");
   if(!prev) return;
   if(!url){prev.innerHTML='';return;}
+  // If it's already a base64 data URL (uploaded image), show directly
+  if(url.startsWith("data:")){
+    prev.innerHTML=`
+      <div style="border:1px solid var(--gray);border-radius:8px;overflow:hidden;max-width:200px">
+        <img src="${url}" style="width:100%;display:block">
+      </div>
+      <div style="font-size:10px;color:var(--sage-d);margin-top:4px">✅ Uploaded graphic</div>`;
+    return;
+  }
+  // OneDrive share link — can't inline preview, show a clickable button instead
+  if(url.includes("onedrive") || url.includes("1drv.ms") || url.includes("sharepoint")){
+    prev.innerHTML=`
+      <a href="${url}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:var(--tan-l);border:1px solid var(--tan);color:#7A5C35;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:500;text-decoration:none">
+        📁 Open in OneDrive ↗
+      </a>
+      <div style="font-size:10px;color:#aaa;margin-top:4px">OneDrive links open in browser — no preview available</div>`;
+    return;
+  }
   // Convert Google Drive share link to direct view
   let viewUrl=url;
   const driveMatch=url.match(/\/file\/d\/([^/]+)/);
@@ -1265,7 +1527,106 @@ function showImagePreview(url){
     <a href="${url}" target="_blank" style="font-size:10px;color:var(--sage-d);display:block;margin-top:4px">Open in browser ↗</a>`;
 }
 
-function previewHtags(id){
+// ── IMAGE UPLOAD & COMPRESSION ────────────────────────────────────────────
+// Images stored separately keyed by post ID to avoid localStorage post size limits
+function saveImageForPost(postId, dataUrl){
+  try {
+    localStorage.setItem("img_" + postId, dataUrl);
+  } catch(e){
+    // Storage full — try clearing oldest images
+    alert("Storage is nearly full. Please clear some old post images in Settings → Storage & Purge.");
+  }
+}
+function loadImageForPost(postId){
+  if(!postId) return null;
+  return localStorage.getItem("img_" + postId) || null;
+}
+function deleteImageForPost(postId){
+  localStorage.removeItem("img_" + postId);
+}
+
+function handleImageUpload(input, postId){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const original = e.target.result;
+    // Compress to max 600px wide, JPEG quality 0.72 — good thumbnail, small size
+    const img = new Image();
+    img.onload = function(){
+      const maxW = 600;
+      const scale = img.width > maxW ? maxW / img.width : 1;
+      const w = Math.round(img.width * scale);
+      const h = Math.round(img.height * scale);
+      const canvas = document.createElement("canvas");
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, w, h);
+      const compressed = canvas.toDataURL("image/jpeg", 0.72);
+      // Show storage size info
+      const kb = Math.round(compressed.length * 0.75 / 1024);
+      // Store and preview
+      const activePostId = editingItemId || postId;
+      if(activePostId && activePostId !== 'new'){
+        saveImageForPost(activePostId, compressed);
+      }
+      // Put in the URL field as a signal that an image is uploaded
+      const urlField = document.getElementById("ef-image-url");
+      if(urlField) urlField.value = "";
+      // Store pending upload for new posts
+      window._pendingImageData = compressed;
+      window._pendingImagePostId = activePostId;
+      // Show preview
+      const prev = document.getElementById("ef-image-preview");
+      if(prev){
+        prev.innerHTML = `
+          <div style="border:1px solid var(--sage);border-radius:8px;overflow:hidden;max-width:200px">
+            <img src="${compressed}" style="width:100%;display:block">
+          </div>
+          <div style="font-size:10px;color:var(--sage-d);margin-top:4px">✅ Uploaded (${kb}KB compressed)</div>`;
+      }
+    };
+    img.src = original;
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearUploadedImage(postId){
+  const activePostId = editingItemId || postId;
+  if(activePostId && activePostId !== 'new') deleteImageForPost(activePostId);
+  window._pendingImageData = null;
+  const urlField = document.getElementById("ef-image-url");
+  if(urlField) urlField.value = "";
+  const prev = document.getElementById("ef-image-preview");
+  if(prev) prev.innerHTML = "";
+}
+
+// Patch showImagePreview to also check for stored thumbnail
+const _origShowPreview = showImagePreview;
+window.showImagePreview = function(url){
+  // First check for a stored thumbnail for the current post
+  const storedImg = editingItemId ? loadImageForPost(editingItemId) : null;
+  if(storedImg){
+    const prev = document.getElementById("ef-image-preview");
+    if(prev){
+      const kb = Math.round(storedImg.length * 0.75 / 1024);
+      let extra = '';
+      if(url && !url.startsWith('data:') && url.trim()){
+        // Also has an OneDrive link
+        const isOneDrive = url.includes("onedrive")||url.includes("1drv.ms")||url.includes("sharepoint");
+        if(isOneDrive) extra = `<a href="${url}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:var(--tan-l);border:1px solid var(--tan);color:#7A5C35;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:500;text-decoration:none;margin-top:6px">📁 Open in OneDrive ↗</a>`;
+      }
+      prev.innerHTML = `
+        <div style="border:1px solid var(--sage);border-radius:8px;overflow:hidden;max-width:200px">
+          <img src="${storedImg}" style="width:100%;display:block">
+        </div>
+        <div style="font-size:10px;color:var(--sage-d);margin-top:4px">✅ Uploaded thumbnail (${kb}KB)</div>
+        ${extra}`;
+      return;
+    }
+  }
+  if(url) _origShowPreview(url);
+};
   const prev=document.getElementById("ef-htag-preview");
   if(!prev) return;
   const g=hashtagGroups.find(x=>x.id===id);
@@ -1486,22 +1847,38 @@ function showQR(post, dateLabel){
 
   const hg = hashtagGroups ? hashtagGroups.find(g=>g.id===post.htagId) : null;
   const isSocial = post.track === "social";
-  const hasImage = !!post.imageUrl;
+  const hasImage = !!(post.imageUrl);
   const hasCaption = !!post.caption;
 
   // Image section
   let imgHTML = '';
-  if(hasImage){
-    let viewUrl = post.imageUrl;
-    const driveMatch = post.imageUrl.match(/\/file\/d\/([^/]+)/);
-    if(driveMatch) viewUrl = `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w400`;
+  const storedThumb = loadImageForPost(post.id);
+  if(storedThumb || hasImage){
+    const isOneDrive = hasImage && (post.imageUrl.includes("onedrive")||post.imageUrl.includes("1drv.ms")||post.imageUrl.includes("sharepoint"));
+    let thumbHTML = '';
+    if(storedThumb){
+      thumbHTML = `<div style="border-radius:10px;overflow:hidden;border:1px solid var(--gray);max-width:260px">
+        <img src="${storedThumb}" style="width:100%;display:block">
+      </div>`;
+    }
+    let linkHTML = '';
+    if(hasImage && isOneDrive){
+      linkHTML = `<a href="${post.imageUrl}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:var(--tan-l);border:1px solid var(--tan);color:#7A5C35;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:500;text-decoration:none;margin-top:8px">📁 Open in OneDrive ↗</a>`;
+    } else if(hasImage && !storedThumb){
+      const driveMatch = post.imageUrl.match(/\/file\/d\/([^/]+)/);
+      const viewUrl = driveMatch ? `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w400` : post.imageUrl;
+      thumbHTML = `<div style="border-radius:10px;overflow:hidden;border:1px solid var(--gray);max-width:260px">
+        <img src="${viewUrl}" style="width:100%;display:block" onerror="this.parentElement.innerHTML='<div style=padding:10px;font-size:11px;color:#aaa>Preview unavailable</div>'">
+      </div>`;
+      linkHTML = `<a href="${post.imageUrl}" target="_blank" style="font-size:10px;color:var(--sage-d);display:block;margin-top:4px">Open image ↗</a>`;
+    } else if(hasImage && storedThumb){
+      linkHTML = `<a href="${post.imageUrl}" target="_blank" style="font-size:10px;color:var(--sage-d);display:block;margin-top:4px">Open original ↗</a>`;
+    }
     imgHTML = `
       <div style="margin-bottom:14px">
         <div style="font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:6px">Graphic</div>
-        <div style="border-radius:10px;overflow:hidden;border:1px solid var(--gray);max-width:260px">
-          <img src="${viewUrl}" style="width:100%;display:block" onerror="this.parentElement.innerHTML='<div style=padding:10px;font-size:11px;color:#aaa>Preview unavailable</div>'">
-        </div>
-        <a href="${post.imageUrl}" target="_blank" style="font-size:10px;color:var(--sage-d);display:block;margin-top:4px">Open image ↗</a>
+        ${thumbHTML}
+        ${linkHTML}
       </div>`;
   } else if(isSocial){
     imgHTML = `
@@ -1509,7 +1886,7 @@ function showQR(post, dateLabel){
         <span style="font-size:18px">⚠️</span>
         <div>
           <div style="font-size:12px;font-weight:500;color:#7A5C35">Image needed</div>
-          <div style="font-size:10px;color:#aaa;margin-top:1px">No graphic linked to this post yet</div>
+          <div style="font-size:10px;color:#aaa;margin-top:1px">No graphic uploaded or linked yet</div>
         </div>
       </div>`;
   }
@@ -1567,9 +1944,59 @@ function showQR(post, dateLabel){
     ${purposeHTML}
     ${capHTML}
     ${htagHTML}
-    <button class="btn-save" onclick="openEditPost('${post.id}');closeModal('qr-modal')" style="margin-top:4px">✏️ Open & Edit</button>
+    ${isSocial ? `
+    <div style="display:flex;gap:8px;margin-top:4px;margin-bottom:8px">
+      <button onclick="shareToInstagram('${post.id}')"
+        style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white;border:none;border-radius:12px;padding:12px;font-family:var(--fb);font-size:13px;font-weight:500;cursor:pointer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg>
+        Post to Instagram
+      </button>
+    </div>` : ''}
+    <button class="btn-save" onclick="openEditPost('${post.id}');closeModal('qr-modal')" style="margin-top:0">✏️ Open & Edit</button>
   `;
   openModal("qr-modal");
+}
+
+// ── INSTAGRAM SHARE ──────────────────────────────────────────────────────
+async function shareToInstagram(postId){
+  const post = posts.find(p=>p.id===postId);
+  if(!post) return;
+
+  // Copy caption + hashtags to clipboard so it's ready to paste in Instagram
+  const hg = hashtagGroups ? hashtagGroups.find(g=>g.id===post.htagId) : null;
+  const extra = post.extraTags||'';
+  const tags = [hg?hg.tags:'', extra].filter(Boolean).join(' ');
+  const captionText = [post.caption||'', tags].filter(Boolean).join('\n\n');
+  if(captionText){
+    try { await navigator.clipboard.writeText(captionText); } catch(e){}
+  }
+
+  // Show instructions then open Instagram — no image transfer,
+  // user picks their full-quality original from their camera roll
+  showInstagramInstructions();
+  setTimeout(()=>{ window.location.href = 'instagram://'; }, 2200);
+}
+
+function showInstagramInstructions(){
+  const existing = document.getElementById('ig-toast');
+  if(existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.id = 'ig-toast';
+  toast.style.cssText = `
+    position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
+    background:#1a1a2e;color:white;border-radius:14px;
+    padding:14px 18px;font-size:12px;line-height:1.6;
+    max-width:290px;width:90%;z-index:9999;
+    box-shadow:0 4px 24px rgba(0,0,0,0.3);
+    font-family:var(--fb);text-align:center;
+  `;
+  toast.innerHTML = `
+    <div style="font-size:16px;margin-bottom:6px">📋 Caption copied!</div>
+    <div style="color:#ccc">Opening Instagram. Tap <strong style="color:white">+</strong>, pick your full-quality photo, then paste your caption.</div>`;
+
+  document.body.appendChild(toast);
+  setTimeout(()=>{ toast.style.opacity='0'; toast.style.transition='opacity .5s'; setTimeout(()=>toast.remove(),500); }, 5000);
 }
 
 function copyCaption(postId){
@@ -1595,16 +2022,30 @@ const _origCardHTML2 = window.cardHTML;
 window.cardHTML = function(post){
   let html = _origCardHTML2(post);
   const isSocial = post.track === "social";
+  const storedThumb = loadImageForPost(post.id);
 
-  if(post.imageUrl){
-    let viewUrl = post.imageUrl;
-    const driveMatch = post.imageUrl.match(/\/file\/d\/([^/]+)/);
-    if(driveMatch) viewUrl = `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w80`;
+  if(storedThumb){
+    // Use stored compressed thumbnail
     const thumb = `<div style="position:absolute;bottom:6px;right:34px;z-index:2;width:32px;height:32px;border-radius:6px;overflow:hidden;border:1px solid var(--gray);background:var(--cream)">
-      <img src="${viewUrl}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.style.display='none'">
+      <img src="${storedThumb}" style="width:100%;height:100%;object-fit:cover">
     </div>`;
     html = html.replace('</div>\n    <div class="card-actions">', `</div>${thumb}\n    <div class="card-actions">`);
-  } else if(isSocial && !post.imageUrl){
+  } else if(post.imageUrl){
+    // Has a link (OneDrive or other) but no uploaded thumbnail
+    const isOneDrive = post.imageUrl.includes("onedrive")||post.imageUrl.includes("1drv.ms")||post.imageUrl.includes("sharepoint");
+    if(isOneDrive){
+      const icon = `<div style="position:absolute;bottom:6px;right:34px;z-index:2;font-size:9px;background:var(--tan-l);border:1px solid var(--tan);color:#7A5C35;padding:2px 5px;border-radius:8px;white-space:nowrap">📁 link</div>`;
+      html = html.replace('</div>\n    <div class="card-actions">', `</div>${icon}\n    <div class="card-actions">`);
+    } else {
+      let viewUrl = post.imageUrl;
+      const driveMatch = post.imageUrl.match(/\/file\/d\/([^/]+)/);
+      if(driveMatch) viewUrl = `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w80`;
+      const thumb = `<div style="position:absolute;bottom:6px;right:34px;z-index:2;width:32px;height:32px;border-radius:6px;overflow:hidden;border:1px solid var(--gray);background:var(--cream)">
+        <img src="${viewUrl}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.style.display='none'">
+      </div>`;
+      html = html.replace('</div>\n    <div class="card-actions">', `</div>${thumb}\n    <div class="card-actions">`);
+    }
+  } else if(isSocial){
     const warn = `<div style="position:absolute;bottom:6px;right:34px;z-index:2;font-size:9px;background:#fff8f0;border:1px solid #f0c080;color:#7A5C35;padding:2px 5px;border-radius:8px;white-space:nowrap">⚠️ img needed</div>`;
     html = html.replace('</div>\n    <div class="card-actions">', `</div>${warn}\n    <div class="card-actions">`);
   }
@@ -1696,6 +2137,22 @@ function runPurgeAuto(pref){
   save(); renderAll();
 }
 
+function updateStorageMeter(){
+  try{
+    let total = 0;
+    for(let k in localStorage){ if(localStorage.hasOwnProperty(k)) total += localStorage[k].length * 2; }
+    const kb = Math.round(total / 1024);
+    const pct = Math.min(100, Math.round(kb / 5120 * 100));
+    const col = pct > 80 ? "#C4788A" : pct > 50 ? "#C8AA88" : "#7A9070";
+    const el = document.getElementById("storage-meter");
+    if(el) el.innerHTML = `
+      <div style="font-size:11px;color:#888;margin-bottom:5px">Storage used: ${kb}KB of ~5,120KB (${pct}%)</div>
+      <div style="background:var(--cream-d);border-radius:4px;height:6px;overflow:hidden">
+        <div style="background:${col};height:100%;width:${pct}%;border-radius:4px;transition:width .4s"></div>
+      </div>`;
+  }catch(e){}
+}
+
 function daysBetween(a,b){
   return Math.abs((new Date(b)-new Date(a))/86400000);
 }
@@ -1715,7 +2172,8 @@ window.renderSettingsPage = function(){
       </div>
       <div style="padding:14px">
         <p style="font-size:12px;color:#888;margin-bottom:12px">Free up space by deleting old posts, completed tasks, and sent newsletters.</p>
-        <button class="btn-save" onclick="openModal('purge-modal')" style="margin-top:0">Run Cleanup Now</button>
+        <div id="storage-meter" style="margin-bottom:12px"></div>
+        <button class="btn-save" onclick="updateStorageMeter();openModal('purge-modal')" style="margin-top:0">Run Cleanup Now</button>
         <button class="btn-ghost" onclick="localStorage.removeItem('purgePref');localStorage.removeItem('purgeLastPrompt');alert('Purge preferences reset.')" style="margin-top:8px">Reset purge preferences</button>
       </div>`;
     const resetBtn = document.querySelector("#page-settings .btn-ghost");
@@ -1723,8 +2181,293 @@ window.renderSettingsPage = function(){
   }
 };
 
-// ── INIT ──────────────────────────────────────────────────────────────────
-setTimeout(checkPurgePrompt, 2000);
+// ── WEEKDAY 8AM REMINDER SYSTEM ───────────────────────────────────────────
+// Get all posts in the next 7 days
+function getNext7Posts(){
+  const result = [];
+  for(let i=0;i<7;i++){
+    const d = new Date(today);
+    d.setDate(today.getDate()+i);
+    const ds = d.toISOString().slice(0,10);
+    posts.filter(p=>p.date===ds).forEach(p=>result.push(p));
+  }
+  return result.sort((a,b)=>a.date.localeCompare(b.date));
+}
+
+function checkPostReadiness(){
+  const upcoming = getNext7Posts();
+  const todayStr = today.toISOString().slice(0,10);
+  const in7Str = (()=>{ const d=new Date(today); d.setDate(today.getDate()+6); return d.toISOString().slice(0,10); })();
+
+  const social = upcoming.filter(p=>p.track==="social");
+  const noImage = social.filter(p=>!p.imageUrl && !loadImageForPost(p.id));
+  const noCaption = social.filter(p=>!p.caption || !p.caption.trim());
+  const newsletters = upcoming.filter(p=>p.track==="newsletter" && p.completed!==true);
+  const emails = upcoming.filter(p=>p.track==="email" && p.completed!==true);
+
+  // Todos: not done and due within the next 7 days (including overdue)
+  const dueTodos = (todos||[]).filter(t=>{
+    if(t.done) return false;
+    if(!t.due) return false;
+    return t.due <= in7Str; // includes overdue (due before today)
+  }).sort((a,b)=>{
+    const pri = {high:0,med:1,low:2};
+    if(a.due !== b.due) return a.due.localeCompare(b.due);
+    return (pri[a.priority]||1) - (pri[b.priority]||1);
+  });
+
+  return {upcoming, social, noImage, noCaption, newsletters, emails, dueTodos};
+}
+
+// Show the in-app readiness check (used when notification is tapped OR on load weekdays)
+function showReadinessModal(){
+  const {upcoming, noImage, noCaption, newsletters, emails, dueTodos} = checkPostReadiness();
+  const allGood = noImage.length===0 && noCaption.length===0 && newsletters.length===0 && emails.length===0 && dueTodos.length===0;
+
+  // Build or reuse modal
+  let ov = document.getElementById("readiness-modal");
+  if(!ov){
+    ov = document.createElement("div");
+    ov.className = "modal-ov";
+    ov.id = "readiness-modal";
+    ov.innerHTML = `<div class="modal"><div class="modal-handle"></div><div id="readiness-content"></div></div>`;
+    document.body.appendChild(ov);
+    ov.addEventListener("click", e=>{ if(e.target===ov) closeModal("readiness-modal"); });
+  }
+
+  if(allGood){
+    document.getElementById("readiness-content").innerHTML = `
+      <div style="text-align:center;padding:20px 10px 30px">
+        <div style="font-size:48px;margin-bottom:12px">🎉</div>
+        <div style="font-family:var(--fd);font-size:22px;font-weight:500;margin-bottom:10px">Locked and loaded!</div>
+        <div style="font-size:13px;color:#666;line-height:1.6">Your next 7 days of social media, newsletters, and emails are ready to go. Pat yourself on the back! 🙌</div>
+        <button onclick="closeModal('readiness-modal')" class="btn-save" style="margin-top:20px">✨ Let's go!</button>
+      </div>`;
+  } else {
+    // Build a helper to render one post row
+    function itemRow(p, badges){
+      const d = new Date(p.date+"T12:00:00");
+      const lbl = `${DAYS[d.getDay()]} ${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}`;
+      return `<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--cream-d)">
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;color:var(--tan);font-weight:500">${lbl}</div>
+          <div style="font-size:13px;font-weight:500;font-family:var(--fd);line-height:1.3;margin:2px 0">${p.title}</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:3px">${badges}</div>
+        </div>
+        <button onclick="closeModal('readiness-modal');openEditPost('${p.id}')"
+          style="flex-shrink:0;background:var(--sage-d);color:white;border:none;border-radius:8px;padding:7px 12px;font-family:var(--fb);font-size:11px;cursor:pointer">Edit</button>
+      </div>`;
+    }
+
+    // Social posts needing attention
+    let socialItems = '';
+    const socialNeeds = [...new Set([...noImage.map(p=>p.id), ...noCaption.map(p=>p.id)])].map(id=>upcoming.find(p=>p.id===id));
+    socialNeeds.forEach(p=>{
+      const missingImg = noImage.some(x=>x.id===p.id);
+      const missingCap = noCaption.some(x=>x.id===p.id);
+      const badges = [
+        missingImg?`<span style="font-size:9px;background:#fff8f0;border:1px solid #f0c080;color:#7A5C35;padding:2px 6px;border-radius:8px">⚠️ No image</span>`:'',
+        missingCap?`<span style="font-size:9px;background:var(--cream-d);color:#888;padding:2px 6px;border-radius:8px">✍️ No caption</span>`:''
+      ].filter(Boolean).join(' ');
+      socialItems += itemRow(p, badges);
+    });
+
+    // Newsletter items not yet marked done
+    let newsletterItems = '';
+    newsletters.forEach(p=>{
+      const badge = `<span style="font-size:9px;background:var(--tan-l);color:#7A5C35;border:1px solid var(--tan);padding:2px 6px;border-radius:8px">📰 Not sent</span>`;
+      newsletterItems += itemRow(p, badge);
+    });
+
+    // Emails not yet marked done
+    let emailItems = '';
+    emails.forEach(p=>{
+      const badge = `<span style="font-size:9px;background:var(--pink-l);color:var(--pink-d);border:1px solid var(--pink);padding:2px 6px;border-radius:8px">✉️ Not sent</span>`;
+      emailItems += itemRow(p, badge);
+    });
+
+    // Todos due in next 7 days (or overdue) not yet done
+    let todoItems = '';
+    const todayStr = today.toISOString().slice(0,10);
+    dueTodos.forEach(t=>{
+      const isOverdue = t.due < todayStr;
+      const dueDate = new Date(t.due+"T12:00:00");
+      const dueLbl = isOverdue
+        ? `<span style="color:#C4788A;font-weight:600">Overdue — was due ${MONTHS[dueDate.getMonth()].slice(0,3)} ${dueDate.getDate()}</span>`
+        : `Due ${DAYS[dueDate.getDay()]} ${MONTHS[dueDate.getMonth()].slice(0,3)} ${dueDate.getDate()}`;
+      const priBadge = t.priority==='high'
+        ? `<span style="font-size:9px;background:#fff0f0;border:1px solid #f0c0c0;color:#C4788A;padding:2px 6px;border-radius:8px">🔴 High</span>`
+        : t.priority==='med'
+        ? `<span style="font-size:9px;background:var(--cream-d);color:#888;padding:2px 6px;border-radius:8px">🟡 Med</span>`
+        : `<span style="font-size:9px;background:var(--cream-d);color:#aaa;padding:2px 6px;border-radius:8px">🟢 Low</span>`;
+      todoItems += `<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--cream-d)">
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;color:var(--tan);font-weight:500">${dueLbl}</div>
+          <div style="font-size:13px;font-weight:500;font-family:var(--fd);line-height:1.4;margin:2px 0">${t.text}</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:3px">${priBadge}</div>
+        </div>
+        <button onclick="const todo=todos.find(x=>x.id==='${t.id}');if(todo){todo.done=true;save();showReadinessModal();}"
+          style="flex-shrink:0;background:var(--sage-d);color:white;border:none;border-radius:8px;padding:7px 10px;font-family:var(--fb);font-size:11px;cursor:pointer">✓ Done</button>
+      </div>`;
+    });
+
+    // Summary line
+    const summaryParts = [
+      socialNeeds.length ? `${socialNeeds.length} social post${socialNeeds.length!==1?'s':''} need attention` : '',
+      newsletters.length ? `${newsletters.length} newsletter item${newsletters.length!==1?'s':''} to send` : '',
+      emails.length ? `${emails.length} email${emails.length!==1?'s':''} to send` : '',
+      dueTodos.length ? `${dueTodos.length} task${dueTodos.length!==1?'s':''} due` : '',
+    ].filter(Boolean);
+
+    // Section headers only shown if that type has items
+    let sections = '';
+    if(socialItems) sections += `
+      <div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#bbb;margin:14px 0 2px">📸 Social Posts</div>
+      ${socialItems}`;
+    if(newsletterItems) sections += `
+      <div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#bbb;margin:14px 0 2px">📰 Newsletters</div>
+      ${newsletterItems}`;
+    if(emailItems) sections += `
+      <div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#bbb;margin:14px 0 2px">✉️ Emails</div>
+      ${emailItems}`;
+    if(todoItems) sections += `
+      <div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#bbb;margin:14px 0 2px">✅ Tasks</div>
+      ${todoItems}`;
+
+    document.getElementById("readiness-content").innerHTML = `
+      <div style="margin-bottom:12px">
+        <div style="font-family:var(--fd);font-size:20px;font-weight:500;margin-bottom:6px">📋 7 Day Check-Up</div>
+        <div style="font-size:12px;color:#888;line-height:1.6">${summaryParts.join(' · ')}</div>
+      </div>
+      <div>${sections}</div>
+      <button onclick="closeModal('readiness-modal')" class="btn-ghost" style="margin-top:12px">Close</button>`;
+  }
+  openModal("readiness-modal");
+}
+
+// Request notification permission and schedule
+async function setupReminders(){
+  if(!("Notification" in window)) return;
+  if(Notification.permission === "default"){
+    // Ask permission with friendly context
+    const granted = await Notification.requestPermission();
+    if(granted !== "granted") return;
+  }
+  if(Notification.permission !== "granted") return;
+  scheduleNext8amCheck();
+}
+
+function scheduleNext8amCheck(){
+  const now = new Date();
+  const day = now.getDay(); // 0=Sun, 6=Sat
+  const isWeekday = day >= 1 && day <= 5;
+
+  // Calculate ms until 8am today (or next weekday if weekend/already past 8am)
+  let next8am = new Date(now);
+  next8am.setHours(8, 0, 0, 0);
+
+  if(now >= next8am || !isWeekday){
+    // Already past 8am today, or it's a weekend — find next weekday
+    next8am.setDate(next8am.getDate() + 1);
+    while(next8am.getDay() === 0 || next8am.getDay() === 6){
+      next8am.setDate(next8am.getDate() + 1);
+    }
+    next8am.setHours(8, 0, 0, 0);
+  }
+
+  const msUntil = next8am - now;
+  localStorage.setItem("reminderScheduled", next8am.toISOString());
+
+  setTimeout(()=>{
+    fireReadinessNotification();
+    // Reschedule for next weekday
+    setTimeout(scheduleNext8amCheck, 1000);
+  }, msUntil);
+}
+
+function fireReadinessNotification(){
+  const {noImage, noCaption, newsletters, emails, dueTodos} = checkPostReadiness();
+  const allGood = noImage.length===0 && noCaption.length===0 && newsletters.length===0 && emails.length===0 && dueTodos.length===0;
+
+  let title, body;
+  if(allGood){
+    title = "🎉 You're all set!";
+    body = "Your next 7 days are locked and loaded — social, newsletters, emails, and tasks. Pat yourself on the back!";
+  } else {
+    title = "📋 7 Day Check-Up";
+    body = [
+      noImage.length ? `${noImage.length} social post${noImage.length!==1?'s':''} need an image` : '',
+      noCaption.length ? `${noCaption.length} post${noCaption.length!==1?'s':''} need a caption` : '',
+      newsletters.length ? `${newsletters.length} newsletter item${newsletters.length!==1?'s':''} to send` : '',
+      emails.length ? `${emails.length} email${emails.length!==1?'s':''} to send` : '',
+      dueTodos.length ? `${dueTodos.length} task${dueTodos.length!==1?'s':''} due` : ''
+    ].filter(Boolean).join(' · ') + " in your next 7 days.";
+  }
+
+  try {
+    const notif = new Notification(title, {
+      body,
+      icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI1NiIgZmlsbD0iI0YyRUVFNiIvPjxwYXRoIGQ9Ik0yNTYgMTYwIEMyMjAgMTYwIDE1MCAxNzUgMTIwIDIwMCBMMTIwIDM2MCBDMTUwIDM0MCAyMjAgMzI4IDI1NiAzMzAgWiIgZmlsbD0iI0E2QjY5QSIvPjxwYXRoIGQ9Ik0yNTYgMTYwIEMyOTIgMTYwIDM2MiAxNzUgMzkyIDIwMCBMMzkyIDM2MCBDMzYyIDM0MCAyOTIgMzI4IDI1NiAzMzAgWiIgZmlsbD0iI0M4QUE4OCIvPjwvc3ZnPg==",
+      tag: "launch-planner-checkin",
+      requireInteraction: false,
+    });
+    notif.onclick = () => { window.focus(); showReadinessModal(); notif.close(); };
+  } catch(e){}
+
+  // Also show in-app if the app is open
+  showReadinessModal();
+}
+
+// Add Reminders button to Settings
+const _origRenderSettings3 = window.renderSettingsPage;
+window.renderSettingsPage = function(){
+  _origRenderSettings3();
+  let reminderSection = document.getElementById("reminder-settings-section");
+  if(!reminderSection){
+    reminderSection = document.createElement("div");
+    reminderSection.id = "reminder-settings-section";
+    reminderSection.className = "settings-section";
+    const permStatus = Notification.permission === "granted" ? "✅ Notifications on" : Notification.permission === "denied" ? "❌ Blocked in browser settings" : "⏳ Not set up yet";
+    reminderSection.innerHTML = `
+      <div class="settings-hdr">
+        <div class="settings-title">🔔 Daily Check-in</div>
+      </div>
+      <div style="padding:14px">
+        <p style="font-size:12px;color:#888;margin-bottom:10px;line-height:1.6">
+          Every weekday at 8am, you'll get a reminder showing which posts in the next 7 days still need an image or caption.
+          If you're all caught up, you'll get a little celebration instead.
+        </p>
+        <div style="font-size:12px;font-weight:500;margin-bottom:10px">Status: ${permStatus}</div>
+        <button class="btn-save" style="margin-top:0" onclick="setupReminders().then(()=>renderSettingsPage())">
+          ${Notification.permission === "granted" ? "✅ Check-in Active" : "Enable Reminders"}
+        </button>
+        <button class="btn-ghost" style="margin-top:8px" onclick="showReadinessModal()">Preview Check-in Now</button>
+      </div>`;
+    const resetBtn = document.querySelector("#page-settings .btn-ghost:last-of-type");
+    if(resetBtn) resetBtn.parentNode.insertBefore(reminderSection, resetBtn);
+    else document.getElementById("page-settings").appendChild(reminderSection);
+  }
+};
+
+// Run readiness check on load if it's a weekday and we haven't checked today
+(function initReminders(){
+  const lastCheck = localStorage.getItem("lastReadinessCheck");
+  const todayStr = today.toISOString().slice(0,10);
+  const isWeekday = today.getDay() >= 1 && today.getDay() <= 5;
+  if(isWeekday && lastCheck !== todayStr){
+    localStorage.setItem("lastReadinessCheck", todayStr);
+    setTimeout(()=>{
+      const {noImage, noCaption, newsletters, emails, dueTodos} = checkPostReadiness();
+      if(noImage.length > 0 || noCaption.length > 0 || newsletters.length > 0 || emails.length > 0 || dueTodos.length > 0){
+        showReadinessModal();
+      }
+    }, 3000); // 3s delay so the app loads first
+  }
+  // Set up future 8am notifications if permission already granted
+  if(Notification && Notification.permission === "granted"){
+    scheduleNext8amCheck();
+  }
+})();
 
 // Pre-fill date and open edit modal for a specific day
 window.prefillAndOpen = function(ds){
@@ -1835,7 +2578,24 @@ function renderDynamicFields(type, p){
     <div class="ef"><label class="ef-lbl">Title</label>
       <input class="ef-input" id="ef-title" value="${p.title||''}"></div>
     <div class="ef"><label class="ef-lbl">Date</label>
-      <input class="ef-input" id="ef-date" type="date" value="${p.date||''}"></div>`;
+      <input class="ef-input" id="ef-date" type="date" value="${p.date||''}"></div>
+    <div class="ef"><label class="ef-lbl">Repeats</label>
+      <select class="ef-select" id="ef-recur" onchange="togglePostRecur()">
+        <option value="">Does not repeat</option>
+        <option value="daily" ${p.recur==='daily'?'selected':''}>Every day</option>
+        <option value="weekly" ${p.recur==='weekly'?'selected':''}>Every week (same day)</option>
+        <option value="biweekly" ${p.recur==='biweekly'?'selected':''}>Every other week</option>
+        <option value="monthly" ${p.recur==='monthly'?'selected':''}>Once a month (same date)</option>
+        <option value="custom" ${p.recur==='custom'?'selected':''}>Custom interval...</option>
+      </select>
+    </div>
+    <div class="ef" id="ef-recur-custom-wrap" style="display:${p.recur==='custom'?'':'none'}">
+      <label class="ef-lbl">Repeat every</label>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input class="ef-input" id="ef-recur-days" type="number" min="1" max="365" value="${p.recurDays||7}" style="width:80px">
+        <span style="font-size:13px;color:#888">days</span>
+      </div>
+    </div>`;
 
   if(type === "social"){
     fields = `
@@ -1910,9 +2670,21 @@ function renderDynamicFields(type, p){
         <textarea class="ef-textarea" id="ef-desc" placeholder="What is this post trying to achieve?" style="min-height:60px">${p.desc||''}</textarea></div>
       <div class="ef"><label class="ef-lbl">Caption</label>
         <textarea class="ef-textarea" id="ef-caption" style="min-height:100px" placeholder="Write your Instagram caption here...">${p.caption||''}</textarea></div>
-      <div class="ef"><label class="ef-lbl">Image / Graphic URL</label>
-        <input class="ef-input" id="ef-image-url" placeholder="Google Drive or web link..." value="${p.imageUrl||''}" onblur="showImagePreview(this.value)">
-        <div id="ef-image-preview" style="margin-top:6px"></div>
+      <div class="ef">
+        <label class="ef-lbl">Graphic</label>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <!-- Upload thumbnail -->
+          <div style="display:flex;gap:8px;align-items:center">
+            <label style="flex:1;display:flex;align-items:center;gap:8px;background:var(--sage-l);color:var(--sage-d);border:1px solid var(--sage);border-radius:8px;padding:9px 12px;cursor:pointer;font-size:12px;font-weight:500">
+              🖼 Upload Graphic
+              <input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(this,'${p.id||'new'}')">
+            </label>
+            <button type="button" onclick="clearUploadedImage('${p.id||'new'}')" style="background:none;border:1px solid var(--gray);border-radius:8px;padding:9px 10px;font-size:11px;color:#999;cursor:pointer;white-space:nowrap">✕ Clear</button>
+          </div>
+          <!-- OneDrive link -->
+          <input class="ef-input" id="ef-image-url" placeholder="Or paste OneDrive link..." value="${p.imageUrl||''}" onblur="showImagePreview(this.value)" style="font-size:12px">
+        </div>
+        <div id="ef-image-preview" style="margin-top:8px"></div>
       </div>
       <button onclick="copyToPost()" style="width:100%;background:var(--pink-d);color:var(--white);border:none;border-radius:12px;padding:12px;font-family:var(--fb);font-size:13px;font-weight:500;cursor:pointer;margin-bottom:12px;transition:background .3s" id="copy-post-btn">📋 Copy Caption + Hashtags</button>`;
 
@@ -2058,6 +2830,8 @@ window.saveItem = function(){
   const eventLocation = (document.getElementById("ef-event-location")||{value:''}).value;
   const rescheduleDate = (document.getElementById("ef-reschedule-date")||{value:''}).value;
   const completed = window._completionState;
+  const recur = (document.getElementById("ef-recur")||{value:''}).value;
+  const recurDays = (document.getElementById("ef-recur-days")||{value:'7'}).value;
 
   const data = {
     title, date, track, desc, caption, imageUrl, htagId, extraTags,
@@ -2065,7 +2839,7 @@ window.saveItem = function(){
     cats: accChosen||[],
     emailTo, emailAddr, newsletterDate,
     eventTime, eventLocation, rescheduleDate,
-    completed,
+    completed, recur, recurDays,
     itemType: type,
   };
 
@@ -2073,7 +2847,21 @@ window.saveItem = function(){
     const i = posts.findIndex(p=>p.id===editingItemId);
     if(i>=0) posts[i] = {...posts[i], ...data};
   } else {
-    posts.push({...data, id:uid()});
+    const newId = uid();
+    posts.push({...data, id:newId});
+    // Save pending uploaded image for new post
+    if(window._pendingImageData){
+      saveImageForPost(newId, window._pendingImageData);
+      window._pendingImageData = null;
+    }
+  }
+
+  // If recurring and marked complete, spawn next occurrence
+  if(recur && completed && !editingItemId){
+    const nextDate = nextPostDate(date, recur, recurDays);
+    if(nextDate){
+      posts.push({...data, id:uid(), date:nextDate, completed:false, id:uid()});
+    }
   }
 
   save();
