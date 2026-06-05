@@ -1627,6 +1627,7 @@ window.showImagePreview = function(url){
   }
   if(url) _origShowPreview(url);
 };
+function previewHtags(id){
   const prev=document.getElementById("ef-htag-preview");
   if(!prev) return;
   const g=hashtagGroups.find(x=>x.id===id);
